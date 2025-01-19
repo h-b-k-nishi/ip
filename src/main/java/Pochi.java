@@ -6,12 +6,12 @@ import java.util.Scanner;
  * @author Hibiki Nishiwaki
  */
 public class Pochi {
-    public static void main(String[] args) {
-        String greet = "Hello! I'm Pochi.\n"
-                + "What can I do for you?\n",
-                farewell = "Bye. Hope to see you again soon!\n";
+    private static final String greet = "Hello! I'm Pochi.\n"
+        + "What can I do for you?\n",
+        farewell = "Bye. Hope to see you again soon!\n";
+
+    private void run() {
         System.out.println(greet);
-        
         Scanner sc = new Scanner(System.in);
         while (true){
             String command = sc.nextLine();
@@ -19,5 +19,9 @@ public class Pochi {
             System.out.println(command);
         }
         System.out.println(farewell);
+    }
+    public static void main(String[] args) {
+        Pochi pochi = new Pochi();
+        pochi.run();
     }
 }
