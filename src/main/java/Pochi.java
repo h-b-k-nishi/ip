@@ -1,3 +1,8 @@
+/**
+ * A class represents a chatbot Pochi.
+ * 
+ * @author Hibiki Nishiwaki
+ */
 public class Pochi {
     public static void main(String[] args) {
         String greet = "Hello! I'm Pochi.\n"
