@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.List;
 
 /**
  * A class represents a chatbot Pochi.
@@ -17,12 +18,18 @@ public class Pochi {
     }
 
     private void processCommand(String command) {
-        if (command.equals("list")) {
+        List<String> info = List.of(command.split(" "));
+        if (info.get(0).equals("list")) {
             storage.listUp();
+        } else if(info.get(0).equals("mark") && info.size() >= 2) {
+            int index = Integer.parseInt(info.get(1));
+            storage.mark(index);
+        } else if (info.get(0).equals("unmark") && info.size() >= 2) {
+            int index = Integer.parseInt(info.get(1));
+            storage.unmark(index);
         } else {
             storage.addTask(new Task(command));
         }
-        System.out.println();
     }
 
     private void run() {
@@ -30,10 +37,17 @@ public class Pochi {
         Scanner sc = new Scanner(System.in);
         while (true){
             String command = sc.nextLine();
-            if (command.equals("bye")) break;
+            if (command.isEmpty()) {
+                continue;
+            }
+            if (command.equals("bye")) {
+                System.out.println(farewell);
+                break;
+            }
             processCommand(command);
+            storage.printStatus();
+            System.out.println();
         }
-        System.out.println(farewell);
     }
     public static void main(String[] args) {
         Pochi pochi = new Pochi();
