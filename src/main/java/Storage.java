@@ -55,6 +55,20 @@ public class Storage {
     }
 
     /**
+     * Remove a task.
+     * 
+     * @param index The index of task removed.
+     */
+    public void delete(int index) throws IndexOutOfBoundException {
+        if (1 <= index && index <= tasks.size()) {
+            System.out.println("Noted. I've removed this task:\n" + tasks.get(index-1));
+            tasks.remove(index-1);
+        } else {
+            throw new IndexOutOfBoundException(tasks.size());
+        }
+    }
+
+    /**
      * Add a new task.
      * 
      * @param task The new task going to be added.

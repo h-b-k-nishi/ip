@@ -44,6 +44,16 @@ public class Pochi {
             } catch (IndexOutOfBoundsException e) {
                 throw e;
             }
+        } else if (info.get(0).equals("delete")) {
+            if (info.size() < 2) {
+                throw new MissingArgumentException();
+            }
+            int index = Integer.parseInt(info.get(1));
+            try {
+                storage.delete(index);
+            } catch (IndexOutOfBoundsException e) {
+                throw e;
+            }
         } else {
             try {
                 storage.addTask(Task.of(info));
