@@ -28,7 +28,7 @@ public class Pochi {
             int index = Integer.parseInt(info.get(1));
             storage.unmark(index);
         } else {
-            storage.addTask(new Task(command));
+            storage.addTask(Task.of(info));
         }
     }
 
