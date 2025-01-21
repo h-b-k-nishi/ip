@@ -82,6 +82,7 @@ public class Task {
      * 
      * @return The string consisting of the description of task.
      */
+    @Override
     public String toString() {
         return (this.isCompleted ? "[X]" : "[ ]") + " " + this.description;
     }
