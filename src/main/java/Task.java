@@ -16,15 +16,15 @@ public class Task {
      * 
      * @param description The description of task.
      */
-    public Task(String description) {
+    public Task(String description) throws EmptyDescriptionException {
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
         this.description = description;
         this.isCompleted = false;
     }
 
     private static List<String> parseDescriptions(List<String> descriptions, List<String> separator) {
-        if (descriptions.isEmpty()) {
-            return List.of();
-        }
         List<String> parsed = new ArrayList<>();
         String curr = "";
         for(int i = 1, j = 0; i < descriptions.size(); i++) {
@@ -40,26 +40,27 @@ public class Task {
             }
         }
         parsed.add(curr);
-        // TODO: handle an empty string.
         return parsed;
     }
 
-    public static Task of(List<String> descriptions) {
-        // TODO: handle an empty string.
+    public static Task of(List<String> descriptions) throws TaskCreationException {
         if (descriptions.get(0).equals("todo")) {
             List<String> parsed = parseDescriptions(descriptions, List.of());
             return new Todo(parsed.get(0));
         } else if (descriptions.get(0).equals("deadline")) {
             List<String> parsed = parseDescriptions(descriptions, List.of("/by"));
-            // TODO: handle parsed.size() < 2
+            if (parsed.size() < 2) {
+                throw new MissingArgumentException();
+            }
             return new Deadline(parsed.get(0), parsed.get(1));
         } else if (descriptions.get(0).equals("event")) {
             List<String> parsed = parseDescriptions(descriptions, List.of("/from", "/to"));
-            // TODO: handle parsed.size() < 3
+            if (parsed.size() < 3) {
+                throw new MissingArgumentException();
+            }
             return new Event(parsed.get(0), parsed.get(1), parsed.get(2));
         } else {
-            // TODO: throw an exception.
-            return new Task("Error");
+            throw new InvalidCommandException();
         }
     }
 

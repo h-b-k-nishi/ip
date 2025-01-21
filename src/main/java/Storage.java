@@ -30,10 +30,12 @@ public class Storage {
      * @param index The index of task marked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
      */
-    public void mark(int index){
+    public void mark(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             tasks.get(index-1).mark();
             System.out.println("Wonderful! I've marked this task as completed:\n" + tasks.get(index-1));
+        } else {
+            throw new IndexOutOfBoundException(tasks.size());
         }
     }
 
@@ -43,10 +45,12 @@ public class Storage {
      * @param index The index of task unmarked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
      */
-    public void unmark(int index){
+    public void unmark(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             tasks.get(index-1).unmark();
             System.out.println("Okay, I've marked this task as incompleted:\n" + tasks.get(index-1));
+        } else {
+            throw new IndexOutOfBoundException(tasks.size());
         }
     }
 

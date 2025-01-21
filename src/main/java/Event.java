@@ -13,7 +13,7 @@ public class Event extends Task {
      * @param startTime The start time of event.
      * @param endTime The end time of event.
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) throws EmptyDescriptionException {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;

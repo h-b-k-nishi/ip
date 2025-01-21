@@ -11,7 +11,7 @@ public class Deadline extends Task {
      * @param description The description of task.
      * @param deadline The deadline of task.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws EmptyDescriptionException {
         super(description);
         this.deadline = deadline;
     }

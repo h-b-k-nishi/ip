@@ -17,18 +17,39 @@ public class Pochi {
         storage = new Storage();
     }
 
-    private void processCommand(String command) {
+    private void processCommand(String command) throws CommandException {
         List<String> info = List.of(command.split(" "));
+        if (info.isEmpty()) {
+            throw new EmptyCommandException();
+        }
         if (info.get(0).equals("list")) {
             storage.listUp();
-        } else if(info.get(0).equals("mark") && info.size() >= 2) {
+        } else if(info.get(0).equals("mark")) {
+            if (info.size() < 2) {
+                throw new MissingArgumentException();
+            }
             int index = Integer.parseInt(info.get(1));
-            storage.mark(index);
-        } else if (info.get(0).equals("unmark") && info.size() >= 2) {
+            try {
+                storage.mark(index);
+            } catch (IndexOutOfBoundsException e) {
+                throw e;
+            }
+        } else if (info.get(0).equals("unmark")) {
+            if (info.size() < 2) {
+                throw new MissingArgumentException();
+            }
             int index = Integer.parseInt(info.get(1));
-            storage.unmark(index);
+            try {
+                storage.unmark(index);
+            } catch (IndexOutOfBoundsException e) {
+                throw e;
+            }
         } else {
-            storage.addTask(Task.of(info));
+            try {
+                storage.addTask(Task.of(info));
+            } catch (CommandException e) {
+                throw e;
+            }
         }
     }
 
@@ -44,9 +65,18 @@ public class Pochi {
                 System.out.println(farewell);
                 break;
             }
-            processCommand(command);
-            storage.printStatus();
             System.out.println();
+            try {
+                processCommand(command);
+                storage.printStatus();
+            } catch (EmptyCommandException e) {
+                // Do noting
+            } catch (CommandException e) {
+                System.out.println("Oops! Some error occurred!");
+                System.out.println(e);
+            } finally {
+                System.out.println();
+            }
         }
     }
     public static void main(String[] args) {
