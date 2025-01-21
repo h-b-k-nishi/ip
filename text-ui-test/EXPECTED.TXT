@@ -1,7 +1,20 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Pochi.
+What can I do for you?
+
+added: [T] [ ] return book
+Now you have 1 tasks in the list.
+
+added: [D] [ ] homework 2 (by: Monday 9pm)
+Now you have 2 tasks in the list.
+
+added: [E] [ ] special lecture by Mr. Taro (from: Tuesday 2pm to: 4pm)
+Now you have 3 tasks in the list.
+
+added: [T] [ ] send      e-mail to my friend nicknamed "Hanako"
+Now you have 4 tasks in the list.
+
+added: [D] [ ] assignment 3 create by Prof. Jun (by: Tomorrow)
+Now you have 5 tasks in the list.
+
+Bye. Hope to see you again soon!
 

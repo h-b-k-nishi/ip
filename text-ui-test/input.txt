@@ -1,0 +1,6 @@
+todo return book
+deadline homework 2 /by Monday 9pm
+event special lecture by Mr. Taro /from Tuesday 2pm /to 4pm
+todo send      e-mail to my friend nicknamed "Hanako"
+deadline assignment 3 create by Prof. Jun /by Tomorrow
+bye
