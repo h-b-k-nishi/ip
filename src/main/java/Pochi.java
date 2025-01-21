@@ -78,6 +78,7 @@ public class Pochi {
                 System.out.println();
             }
         }
+        sc.close();
     }
     public static void main(String[] args) {
         Pochi pochi = new Pochi();
