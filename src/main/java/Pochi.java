@@ -65,7 +65,6 @@ public class Pochi {
                 System.out.println(farewell);
                 break;
             }
-            System.out.println();
             try {
                 processCommand(command);
                 storage.printStatus();
