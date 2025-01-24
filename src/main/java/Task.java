@@ -43,6 +43,14 @@ public class Task {
         return parsed;
     }
 
+    /**
+     * A manufacturing method of Task (or its subclasses).
+     * 
+     * @param descriptions The description of Task being created.
+     * @return An instance of Task.
+     * @throws TaskCreationException This method may throw exceptions 
+     * that can occur during a creation of Task instance.
+     */
     public static Task of(List<String> descriptions) throws TaskCreationException {
         if (descriptions.get(0).equals("todo")) {
             List<String> parsed = parseDescriptions(descriptions, List.of());
