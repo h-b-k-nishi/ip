@@ -7,9 +7,9 @@ import java.util.List;
  * @author Hibiki Nishiwaki
  */
 public class Pochi {
-    private static final String greet = "Hello! I'm Pochi.\n"
+    private static final String GREET = "Hello! I'm Pochi.\n"
         + "What can I do for you?\n",
-        farewell = "Bye. Hope to see you again soon!\n";
+        FAREWELL = "Bye. Hope to see you again soon!\n";
     
     private final Storage storage;
 
@@ -64,7 +64,7 @@ public class Pochi {
     }
 
     private void run() {
-        System.out.println(greet);
+        System.out.println(GREET);
         Scanner sc = new Scanner(System.in);
         while (true){
             String command = sc.nextLine();
@@ -72,7 +72,7 @@ public class Pochi {
                 continue;
             }
             if (command.equals("bye")) {
-                System.out.println(farewell);
+                System.out.println(FAREWELL);
                 break;
             }
             try {
