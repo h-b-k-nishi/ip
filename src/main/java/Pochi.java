@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -78,12 +79,16 @@ public class Pochi {
             try {
                 processCommand(command);
                 storage.printStatus();
+                storage.createLog();
             } catch (EmptyCommandException e) {
                 // Do noting
             } catch (CommandException e) {
                 System.out.println("Oops! Some error occurred!");
                 System.out.println(e);
-            } finally {
+            } catch (IOException e) {
+                System.out.println("Oops! Some error occurred during the creating of log file.");
+                System.out.println("Please note that the current status of tasks is not saved, sorry...");
+            }finally {
                 System.out.println();
             }
         }

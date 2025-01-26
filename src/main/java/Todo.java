@@ -22,4 +22,14 @@ public class Todo extends Task {
     public String toString() {
         return "[T] " + super.toString();
     }
+
+    /**
+     * Returns a short description of this task.
+     * 
+     * @return The string description
+     */
+    @Override
+    public String log() {
+        return "T | " + super.log();
+    }
 }

@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,5 +86,28 @@ public class Storage {
      */
     public void printStatus() {
         System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
+    }
+
+    /**
+     * Creates a file logging the information of tasks.
+     */
+    public void createLog() throws IOException {
+        String DIR = "./../data/", FILE = "log.txt";
+        File folder = new File(DIR);
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+        File logFile = new File(DIR + FILE);
+        if (!logFile.exists()) {
+            logFile.createNewFile();
+        }
+        FileWriter fw = new FileWriter(logFile);
+        try {
+            for (int i = 0; i < tasks.size(); i++) {
+                fw.write(tasks.get(i).log() + "\n");
+            }
+        } finally {
+            fw.close();
+        }
     }
 }
