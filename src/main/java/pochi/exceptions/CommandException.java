@@ -8,14 +8,14 @@ package pochi.exceptions;
  */
 public abstract class CommandException extends Exception {
     /**
-     * The constructor of exception without description.
+     * Constructs a new instance of this exception.
      */
     public CommandException() {
         super();
     }
 
     /**
-     * The constructor of exception.
+     * Constructs a new instance of this exception.
      * 
      * @param description A string describing this exceptional situation.
      */

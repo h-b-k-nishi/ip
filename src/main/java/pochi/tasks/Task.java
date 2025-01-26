@@ -21,9 +21,10 @@ public class Task {
     private boolean isCompleted;
 
     /**
-     * The constructor of task.
+     * Constructs a new instance of Task.
      * 
      * @param description The description of task.
+     * @throws EmptyDescriptionException Thrown when the given description is empty.
      */
     public Task(String description) throws EmptyDescriptionException {
         if (description.isEmpty()) {
@@ -39,6 +40,7 @@ public class Task {
      * 
      * @param descriptions The descriptions of instance.
      * @return The newly created instance of Task.
+     * @throws TaskCreationException Thrown when some error occurs during the creation of task.
      */
     public static Task createTask(List<String> descriptions) throws TaskCreationException {
         Task res;
@@ -86,21 +88,21 @@ public class Task {
     }
 
     /**
-     * Mark this task as completed.
+     * Marks this task as completed.
      */
     public void mark() {
         this.isCompleted = true;
     }
 
     /**
-     * Mark this task as uncompleted.
+     * Marks this task as uncompleted.
      */
     public void unmark() {
         this.isCompleted = false;
     }
 
     /**
-     * Return the string representation of this task.
+     * Returns the string representation of this task.
      * 
      * @return The string consisting of the description of task.
      */

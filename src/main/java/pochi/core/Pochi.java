@@ -15,8 +15,13 @@ import pochi.tasks.Task;
  * @author Hibiki Nishiwaki
  */
 public class Pochi {
+    /** An instance of Ui handling the interaction with the user. */
     private final Ui ui;
+
+    /** An instance of Storage handling file I/O regarding the logging. */
     private final Storage storage;
+
+    /** An instance of TaskList maintaing the information of current tasks. */
     private final TaskList tasks;
 
     private Pochi() {

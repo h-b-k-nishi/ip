@@ -14,12 +14,17 @@ import java.util.Scanner;
  * @author Hibiki Nishiwaki
  */
 public class Storage {
-    private final String DIR = "./data/", FILE = DIR + "log.txt";
+    /** A string representing the path to the directly, which contains the log file. */
+    private String DIR = "./data/";
+
+    /** A string representing the path to the log file. */
+    private String FILE = DIR + "log.txt";
 
     /**
      * Loads a log from previous session.
      * 
      * @return A list of strings representing log information.
+     * @throws IOException Thrown when some error occurs during the file I/O.
      */
     public List<String> readLog() throws IOException  {
         List<String> results = new ArrayList<>();
@@ -54,6 +59,7 @@ public class Storage {
      * Creates a file logging the information of tasks.
      * 
      * @param log The log that is going to be logged.
+     * @throws IOException Thrown when an error is occurred during the file I/O.
      */
     public void createLog(String log) throws IOException {
         File folder = new File(DIR);

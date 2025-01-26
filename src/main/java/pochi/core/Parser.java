@@ -59,6 +59,7 @@ public class Parser {
      * 
      * @param command The string representation of string.
      * @return A list of string consisting of the parsed strings.
+     * @throws CommandException Thrown when the given command has an invalid format.
      */
     public static List<String> parseCommand(String command) throws CommandException {
         List<String> commands = List.of(command.split(" "));
