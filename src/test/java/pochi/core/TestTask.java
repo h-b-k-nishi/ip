@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import pochi.exceptions.*;
 
-/*
- * Since it is guranteed that 
- */
 public class TestTask {
     @Test
     public void missingArgumentTest() {
