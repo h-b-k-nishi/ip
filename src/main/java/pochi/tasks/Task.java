@@ -17,6 +17,7 @@ public class Task {
      * The constructor of task.
      * 
      * @param description The description of task.
+     * @throws EmptyDescriptionException Thrown when the given description is empty.
      */
     public Task(String description) throws EmptyDescriptionException {
         if (description.isEmpty()) {
@@ -31,6 +32,7 @@ public class Task {
      * 
      * @param descriptions The descriptions of instance.
      * @return The newly created instance of Task.
+     * @throws TaskCreationException Thrown when some error occurs during the creation of task.
      */
     public static Task of(List<String> descriptions) throws TaskCreationException {
         Task res;

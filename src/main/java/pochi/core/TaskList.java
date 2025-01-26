@@ -33,7 +33,9 @@ public class TaskList {
      * Remove a task.
      * 
      * @param index The index of task removed.
+     * It has to satisfy: 1 <= index <= (current number of tasks).
      * @return The removed task.
+     * @throws IndexOutOfBoundException Thrown when the given index is out of range.
      */
     public Task delete(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
@@ -51,6 +53,7 @@ public class TaskList {
      * @param index The index of task marked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
      * @return The marked task.
+     * @throws IndexOutOfBoundException Thrown when the given index is out of range.
      */
     public Task mark(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
@@ -68,6 +71,7 @@ public class TaskList {
      * @param index The index of task unmarked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
      * @return The unmarked task.
+     * @throws IndexOutOfBoundException Thrown when the given index is out of range.
      */
     public Task unmark(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {

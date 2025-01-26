@@ -16,6 +16,7 @@ public class Event extends Task {
      * @param description The description of task.
      * @param startTime The start time of event.
      * @param endTime The end time of event.
+     * @throws EmptyDescriptionException Thrown when the given description is empty.
      */
     public Event(String description, LocalDateTime startTime, LocalDateTime endTime) throws EmptyDescriptionException {
         super(description);

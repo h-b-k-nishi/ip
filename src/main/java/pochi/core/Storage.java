@@ -18,6 +18,7 @@ public class Storage {
      * Loads a log from previous session.
      * 
      * @return A list of strings representing log information.
+     * @throws IOException Thrown when some error occurs during the file I/O.
      */
     public List<String> readLog() throws IOException  {
         List<String> res = new ArrayList<>();
@@ -45,6 +46,7 @@ public class Storage {
      * Creates a file logging the information of tasks.
      * 
      * @param log The log that is going to be logged.
+     * @throws IOException Thrown when an error is occurred during the file I/O.
      */
     public void createLog(String log) throws IOException {
         File folder = new File(DIR);

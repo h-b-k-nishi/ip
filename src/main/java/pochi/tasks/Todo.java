@@ -10,6 +10,7 @@ public class Todo extends Task {
      * The constructor of Todo task.
      * 
      * @param description The description of task.
+     * @throws EmptyDescriptionException Thrown when the given description is empty.
      */
     public Todo(String description) throws EmptyDescriptionException {
         super(description);

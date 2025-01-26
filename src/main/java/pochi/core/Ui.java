@@ -18,8 +18,6 @@ public class Ui {
     /**
      * The constructor of Ui, which initializes the scanner 
      * from standard input and greets to the user.
-     * 
-     * @param pochi The chatbot interacting with the user.
      */
     public Ui() {
         this.sc = new Scanner(System.in);

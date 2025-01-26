@@ -14,6 +14,7 @@ public class Deadline extends Task {
      * 
      * @param description The description of task.
      * @param deadline The deadline of task.
+     * @throws EmptyDescriptionException Thrown when the given description is empty.
      */
     public Deadline(String description, LocalDateTime deadline) throws EmptyDescriptionException {
         super(description);
