@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +45,14 @@ public class Task {
         return parsed;
     }
 
+    private static LocalDateTime toLocalDateTime(String data) throws InvalidDateException {
+        try {
+            return LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+    }
+
     /**
      * A manufacturing method of Task (or its subclasses).
      * 
@@ -59,16 +70,24 @@ public class Task {
             if (parsed.size() < 2) {
                 throw new MissingArgumentException();
             }
-            return new Deadline(parsed.get(0), parsed.get(1));
+            return new Deadline(parsed.get(0), Task.toLocalDateTime(parsed.get(1)));
         } else if (descriptions.get(0).equals("event")) {
             List<String> parsed = parseDescriptions(descriptions, List.of("/from", "/to"));
             if (parsed.size() < 3) {
                 throw new MissingArgumentException();
             }
-            return new Event(parsed.get(0), parsed.get(1), parsed.get(2));
+            return new Event(parsed.get(0), 
+            Task.toLocalDateTime(parsed.get(1)), Task.toLocalDateTime(parsed.get(2)));
         } else {
             throw new InvalidCommandException();
         }
+    }
+
+    /**
+     * Returns a desirable format of date.
+     */
+    public static String formatDateTime(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm"));
     }
 
     /**
