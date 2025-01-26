@@ -1,6 +1,8 @@
 todo return book
-deadline homework 2 /by Monday 9pm
-event special lecture by Mr. Taro /from Tuesday 2pm /to 4pm
+deadline homework 2 /by 2025-01-29 23:30
+event special lecture by Mr. Taro /from 2025-01-31 14:00 /to 2025-01-31 15:00
 todo send      e-mail to my friend nicknamed "Hanako"
 deadline assignment 3 create by Prof. Jun /by Tomorrow
+event family dinner by Mr. Taro /from Monday /to Tuesday
+deadline e-mail to Prof. Hanako
 bye
