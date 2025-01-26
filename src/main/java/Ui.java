@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Ui {
     private static final String GREET = "Hello! I'm Pochi.\n"
         + "What can I do for you?\n",
-        FAREWELL = "Bye. Hope to see you again soon!\n";
+        FAREWELL = "Bye. Hope to see you again soon!";
     private final Scanner sc;
 
     /**
@@ -56,11 +56,10 @@ public class Ui {
     /**
      * Read a new line of user input.
      * 
-     * @return The list of string representing the input, separated by space.
+     * @return The string representing the input.
      */
-    public List<String> readInput() {
-        String input = sc.nextLine();
-        return List.of(input.split(" "));
+    public String readInput() {
+        return sc.nextLine();
     }
 
     /**

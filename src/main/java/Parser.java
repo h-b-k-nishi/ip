@@ -28,42 +28,63 @@ public class Parser {
         parsed.add(curr);
         return parsed;
     }
-
-    private static LocalDateTime toLocalDateTime(String data) throws InvalidDateException {
-        try {
-            return LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateException();
-        }
-    }
-
+    
     /**
-     * Creates a Task (or its subclasses) based on the given description.
+     * Parses a command given by the user.
      * 
-     * @param descriptions The description of Task being created.
-     * @return An instance of Task.
-     * @throws TaskCreationException This method may throw exceptions 
-     * that can occur during a creation of Task instance.
+     * @param command The string representation of string.
+     * @return A list of string consisting of the parsed strings.
      */
-    public static Task parseTask(List<String> descriptions) throws TaskCreationException {
-        if (descriptions.get(0).equals("todo")) {
-            List<String> parsed = parseDescriptions(descriptions, List.of());
-            return new Todo(parsed.get(0));
-        } else if (descriptions.get(0).equals("deadline")) {
-            List<String> parsed = parseDescriptions(descriptions, List.of("/by"));
+    public static List<String> parse(String command) throws CommandException {
+        List<String> info = List.of(command.split(" "));
+        if (info.isEmpty()) {
+            throw new EmptyCommandException();
+        }
+        List<String> res = new ArrayList<>();
+        res.add(info.get(0));
+        if (info.get(0).equals("bye")
+        || info.get(0).equals("list")){
+            // do nothing
+        } else if(info.get(0).equals("mark") 
+        || info.get(0).equals("unmark")
+        || info.get(0).equals("delete")) {
+            if (info.size() < 2) {
+                throw new MissingArgumentException();
+            }
+            res.add(info.get(1));
+        } else if (info.get(0).equals("todo")) {
+            List<String> parsed = parseDescriptions(info, List.of());
+            res.add(parsed.get(0));
+        } else if (info.get(0).equals("deadline")) {
+            List<String> parsed = parseDescriptions(info, List.of("/by"));
             if (parsed.size() < 2) {
                 throw new MissingArgumentException();
             }
-            return new Deadline(parsed.get(0), Parser.toLocalDateTime(parsed.get(1)));
-        } else if (descriptions.get(0).equals("event")) {
-            List<String> parsed = parseDescriptions(descriptions, List.of("/from", "/to"));
+            res.addAll(parsed.subList(0, 2));
+        } else if (info.get(0).equals("event")) {
+            List<String> parsed = parseDescriptions(info, List.of("/from", "/to"));
             if (parsed.size() < 3) {
                 throw new MissingArgumentException();
             }
-            return new Event(parsed.get(0), 
-            Parser.toLocalDateTime(parsed.get(1)), Parser.toLocalDateTime(parsed.get(2)));
+            res.addAll(parsed.subList(0, 3));
         } else {
             throw new InvalidCommandException();
+        }
+        return res;
+    }
+
+    /**
+     * Converts a string representation of date and time to LocalDateTime.
+     * 
+     * @param dateAndTime The string representation of date and time.
+     * @return The converted instance of LocalDateTime.
+     * @throws InvalidDateException Thrown when the format is invalid.
+     */
+    public static LocalDateTime toLocalDateTime(String dateAndTime) throws InvalidDateException {
+        try {
+            return LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
         }
     }
 }

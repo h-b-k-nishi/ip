@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * A class that represents a task.
  * 
@@ -18,6 +20,25 @@ public class Task {
         }
         this.description = description;
         this.isCompleted = false;
+    }
+
+    /**
+     * Creates an instance of Task (or its subclass) based on the given information.
+     * 
+     * @param descriptions The descriptions of instance.
+     * @return The newly created instance of Task.
+     */
+    public static Task of(List<String> descriptions) throws TaskCreationException {
+        if (descriptions.get(0).equals("todo")) {
+            return new Todo(descriptions.get(1));
+        } else if (descriptions.get(0).equals("deadline")) {
+            return new Deadline(descriptions.get(1), Parser.toLocalDateTime(descriptions.get(2)));
+        } else if (descriptions.get(0).equals("event")) {
+            return new Event(descriptions.get(1), 
+            Parser.toLocalDateTime(descriptions.get(2)), Parser.toLocalDateTime(descriptions.get(3)));
+        } else {
+            throw new InvalidCommandException();
+        }
     }
 
     /**
