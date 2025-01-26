@@ -36,7 +36,7 @@ public class Deadline extends Task {
      * @return The string description
      */
     @Override
-    public String log() {
-        return "deadline | " + super.log() + " | " + this.deadline;
+    public String getLog() {
+        return "deadline | " + super.getLog() + " | " + this.deadline;
     }
 }

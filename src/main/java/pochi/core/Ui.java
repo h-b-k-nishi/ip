@@ -13,7 +13,7 @@ public class Ui {
     private static final String GREET = "Hello! I'm Pochi.\n"
         + "What can I do for you?\n",
         FAREWELL = "Bye. Hope to see you again soon!";
-    private final Scanner sc;
+    private final Scanner scanner;
 
     /**
      * The constructor of Ui, which initializes the scanner 
@@ -22,7 +22,7 @@ public class Ui {
      * @param pochi The chatbot interacting with the user.
      */
     public Ui() {
-        this.sc = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
         System.out.println(GREET);
     }
     
@@ -31,7 +31,7 @@ public class Ui {
      */
     public void exit() {
         System.out.println(FAREWELL);
-        sc.close();
+        scanner.close();
     }
 
     /**
@@ -48,9 +48,9 @@ public class Ui {
      * 
      * @param list The list of string representations.
      */
-    public void printList(List<String> list) {
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
+    public void printList(List<String> descriptions) {
+        for(int i = 0; i < descriptions.size(); i++) {
+            System.out.println(descriptions.get(i));
         }
     }
 
@@ -120,7 +120,7 @@ public class Ui {
      * @return The string representing the input.
      */
     public String readInput() {
-        return sc.nextLine();
+        return scanner.nextLine();
     }
 
     /**

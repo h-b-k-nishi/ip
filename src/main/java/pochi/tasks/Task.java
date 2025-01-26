@@ -32,7 +32,7 @@ public class Task {
      * @param descriptions The descriptions of instance.
      * @return The newly created instance of Task.
      */
-    public static Task of(List<String> descriptions) throws TaskCreationException {
+    public static Task createTask(List<String> descriptions) throws TaskCreationException {
         Task res;
         if (descriptions.isEmpty()) {
             throw new MissingArgumentException();
@@ -97,7 +97,7 @@ public class Task {
      * 
      * @return The string description
      */
-    public String log() {
+    public String getLog() {
         return this.description + " | " + this.isCompleted;
     }
 }

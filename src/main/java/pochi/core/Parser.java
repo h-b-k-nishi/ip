@@ -12,12 +12,12 @@ import pochi.exceptions.*;
  * @author Hibiki Nishiwaki
  */
 public class Parser {
-    private static List<String> parseDescriptions(List<String> descriptions, List<String> separator) {
-        List<String> parsed = new ArrayList<>();
+    private static List<String> parseDescriptions(List<String> descriptions, List<String> separators) {
+        List<String> parsedDescriptions = new ArrayList<>();
         String curr = "";
         for(int i = 1, j = 0; i < descriptions.size(); i++) {
-            if (j < separator.size() && descriptions.get(i).equals(separator.get(j))) {
-                parsed.add(curr);
+            if (j < separators.size() && descriptions.get(i).equals(separators.get(j))) {
+                parsedDescriptions.add(curr);
                 curr = "";
                 j++;
             } else {
@@ -27,8 +27,8 @@ public class Parser {
                 curr += descriptions.get(i);
             }
         }
-        parsed.add(curr);
-        return parsed;
+        parsedDescriptions.add(curr);
+        return parsedDescriptions;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Parser {
      * @return The converted instance of LocalDateTime.
      * @throws InvalidDateException Thrown when the format is invalid.
      */
-    private static LocalDateTime toLocalDateTime(String dateAndTime) throws InvalidDateException {
+    private static LocalDateTime convertToLocalDateTime(String dateAndTime) throws InvalidDateException {
         try {
             return LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } catch (DateTimeParseException e) {
@@ -52,47 +52,47 @@ public class Parser {
      * @param command The string representation of string.
      * @return A list of string consisting of the parsed strings.
      */
-    public static List<String> parse(String command) throws CommandException {
-        List<String> info = List.of(command.split(" "));
-        if (info.isEmpty()) {
+    public static List<String> parseCommand(String command) throws CommandException {
+        List<String> commands = List.of(command.split(" "));
+        if (commands.isEmpty()) {
             throw new EmptyCommandException();
         }
-        List<String> res = new ArrayList<>();
-        res.add(info.get(0));
-        if (info.get(0).equals("bye")
-        || info.get(0).equals("list")){
+        List<String> results = new ArrayList<>();
+        results.add(commands.get(0));
+        if (commands.get(0).equals("bye")
+        || commands.get(0).equals("list")){
             // do nothing
-        } else if(info.get(0).equals("mark") 
-        || info.get(0).equals("unmark")
-        || info.get(0).equals("delete")) {
-            if (info.size() < 2) {
+        } else if(commands.get(0).equals("mark") 
+        || commands.get(0).equals("unmark")
+        || commands.get(0).equals("delete")) {
+            if (commands.size() < 2) {
                 throw new MissingArgumentException();
             }
-            res.add(info.get(1));
-        } else if (info.get(0).equals("todo")) {
-            List<String> parsed = parseDescriptions(info, List.of());
-            res.add(parsed.get(0));
-            res.add("false");
-        } else if (info.get(0).equals("deadline")) {
-            List<String> parsed = parseDescriptions(info, List.of("/by"));
-            if (parsed.size() < 2) {
+            results.add(commands.get(1));
+        } else if (commands.get(0).equals("todo")) {
+            List<String> parsedDescriptions = parseDescriptions(commands, List.of());
+            results.add(parsedDescriptions.get(0));
+            results.add("false");
+        } else if (commands.get(0).equals("deadline")) {
+            List<String> parsedDescriptions = parseDescriptions(commands, List.of("/by"));
+            if (parsedDescriptions.size() < 2) {
                 throw new MissingArgumentException();
             }
-            res.add(parsed.get(0));
-            res.add("false");
-            res.add(Parser.toLocalDateTime(parsed.get(1)).toString());
-        } else if (info.get(0).equals("event")) {
-            List<String> parsed = parseDescriptions(info, List.of("/from", "/to"));
-            if (parsed.size() < 3) {
+            results.add(parsedDescriptions.get(0));
+            results.add("false");
+            results.add(Parser.convertToLocalDateTime(parsedDescriptions.get(1)).toString());
+        } else if (commands.get(0).equals("event")) {
+            List<String> parsedDescriptions = parseDescriptions(commands, List.of("/from", "/to"));
+            if (parsedDescriptions.size() < 3) {
                 throw new MissingArgumentException();
             }
-            res.add(parsed.get(0));
-            res.add("false");
-            res.add(Parser.toLocalDateTime(parsed.get(1)).toString());
-            res.add(Parser.toLocalDateTime(parsed.get(2)).toString());
+            results.add(parsedDescriptions.get(0));
+            results.add("false");
+            results.add(Parser.convertToLocalDateTime(parsedDescriptions.get(1)).toString());
+            results.add(Parser.convertToLocalDateTime(parsedDescriptions.get(2)).toString());
         } else {
             throw new InvalidCommandException();
         }
-        return res;
+        return results;
     }
 }

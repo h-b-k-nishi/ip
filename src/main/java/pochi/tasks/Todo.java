@@ -31,7 +31,7 @@ public class Todo extends Task {
      * @return The string description
      */
     @Override
-    public String log() {
-        return "todo | " + super.log();
+    public String getLog() {
+        return "todo | " + super.getLog();
     }
 }

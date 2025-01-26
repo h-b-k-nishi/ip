@@ -40,7 +40,7 @@ public class Event extends Task {
      * @return The string description
      */
     @Override
-    public String log() {
-        return "event | " + super.log() + " | " + this.startTime + " | " + this.endTime;
+    public String getLog() {
+        return "event | " + super.getLog() + " | " + this.startTime + " | " + this.endTime;
     }
 }
