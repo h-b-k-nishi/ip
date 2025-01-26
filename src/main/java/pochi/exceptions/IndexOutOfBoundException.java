@@ -1,4 +1,5 @@
 package pochi.exceptions;
+
 /**
  * An exception indicates that a operation against an element of strorage,
  * denoted by its index, is out of range.

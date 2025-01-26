@@ -1,8 +1,12 @@
 package pochi.core;
-import java.util.List;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import pochi.exceptions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import pochi.exceptions.CommandException;
 
 public class ParserTest {
     @Test
@@ -16,7 +20,7 @@ public class ParserTest {
                     "Some arguments (/by, /from, /to, or the index of task) are missing!!");
         }
     }
-    
+
     @Test
     public void multipleSpacesTest() {
         try {

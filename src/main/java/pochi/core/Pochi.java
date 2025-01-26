@@ -1,7 +1,12 @@
 package pochi.core;
+
 import java.io.IOException;
+
 import java.util.List;
-import pochi.exceptions.*;
+
+import pochi.exceptions.CommandException;
+import pochi.exceptions.EmptyCommandException;
+
 import pochi.tasks.Task;
 
 /**
@@ -108,7 +113,7 @@ public class Pochi {
     }
     public static void main(String[] args) {
         Pochi pochi = new Pochi();
-        
+
         pochi.run();
     }
 }

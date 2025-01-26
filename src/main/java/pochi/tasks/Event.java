@@ -1,6 +1,9 @@
 package pochi.tasks;
+
 import java.time.LocalDateTime;
+
 import pochi.core.Ui;
+
 import pochi.exceptions.EmptyDescriptionException;
 /**
  * A class that represents a Event task.
@@ -21,7 +24,7 @@ public class Event extends Task {
     public Event(String description, LocalDateTime startTime, LocalDateTime endTime) 
             throws EmptyDescriptionException {
         super(description);
-        
+
         this.startTime = startTime;
         this.endTime = endTime;
     }

@@ -1,7 +1,10 @@
 package pochi.core;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import pochi.exceptions.IndexOutOfBoundException;
+
 import pochi.tasks.Task;
 
 /**
@@ -127,7 +130,7 @@ public class TaskList {
      */
     public String getLog() {
         String log = "";
-        
+
         for (int i = 0; i < tasks.size(); i++) {
             log += tasks.get(i).getLog() + "\n";
         }

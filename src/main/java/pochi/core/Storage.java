@@ -1,7 +1,9 @@
 package pochi.core;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -67,7 +69,7 @@ public class Storage {
         }
 
         FileWriter fw = new FileWriter(logFile);
-        
+
         try {
             fw.write(log);
         } finally {

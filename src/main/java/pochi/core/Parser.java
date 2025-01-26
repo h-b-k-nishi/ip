@@ -1,10 +1,17 @@
 package pochi.core;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
-import pochi.exceptions.*;
+
+import pochi.exceptions.CommandException;
+import pochi.exceptions.EmptyCommandException;
+import pochi.exceptions.InvalidCommandException;
+import pochi.exceptions.InvalidDateException;
+import pochi.exceptions.MissingArgumentException;
 
 /**
  * A class parses commands from the user.
@@ -95,7 +102,7 @@ public class Parser {
             if (parsedDescriptions.size() < 3) {
                 throw new MissingArgumentException();
             }
-            
+
             results.add(parsedDescriptions.get(0));
             results.add("false");
             results.add(Parser.convertToLocalDateTime(parsedDescriptions.get(1)).toString());
