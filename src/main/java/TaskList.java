@@ -19,21 +19,24 @@ public class TaskList {
      * Add a new task.
      * 
      * @param task The new task going to be added.
+     * @return The newly added task.
      */
-    public void addTask(Task task) {
+    public Task addTask(Task task) {
         tasks.add(task);
-        System.out.println("added: " + task);
+        return task;
     }
 
     /**
      * Remove a task.
      * 
      * @param index The index of task removed.
+     * @return The removed task.
      */
-    public void delete(int index) throws IndexOutOfBoundException {
+    public Task delete(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
-            System.out.println("Noted. I've removed this task:\n" + tasks.get(index-1));
+            Task removed = tasks.get(index-1);
             tasks.remove(index-1);
+            return removed;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
         }
@@ -44,11 +47,13 @@ public class TaskList {
      * 
      * @param index The index of task marked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
+     * @return The marked task.
      */
-    public void mark(int index) throws IndexOutOfBoundException {
+    public Task mark(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
-            tasks.get(index-1).mark();
-            System.out.println("Wonderful! I've marked this task as completed:\n" + tasks.get(index-1));
+            Task marked = tasks.get(index-1);
+            marked.mark();
+            return marked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
         }
@@ -59,11 +64,13 @@ public class TaskList {
      * 
      * @param index The index of task unmarked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
+     * @return The unmarked task.
      */
-    public void unmark(int index) throws IndexOutOfBoundException {
+    public Task unmark(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
-            tasks.get(index-1).unmark();
-            System.out.println("Okay, I've marked this task as incompleted:\n" + tasks.get(index-1));
+            Task unmarked = tasks.get(index-1);
+            unmarked.unmark();
+            return unmarked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
         }
@@ -76,6 +83,15 @@ public class TaskList {
      */
     public int getNumberOfTasks() {
         return this.tasks.size();
+    }
+
+    /**
+     * Check if this task list is empty.
+     * 
+     * @return True if it is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
     }
 
     /**

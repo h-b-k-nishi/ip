@@ -28,6 +28,21 @@ public class Parser {
         parsed.add(curr);
         return parsed;
     }
+
+    /**
+     * Converts a string representation of date and time to LocalDateTime.
+     * 
+     * @param dateAndTime The string representation of date and time.
+     * @return The converted instance of LocalDateTime.
+     * @throws InvalidDateException Thrown when the format is invalid.
+     */
+    private static LocalDateTime toLocalDateTime(String dateAndTime) throws InvalidDateException {
+        try {
+            return LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+    }
     
     /**
      * Parses a command given by the user.
@@ -55,36 +70,27 @@ public class Parser {
         } else if (info.get(0).equals("todo")) {
             List<String> parsed = parseDescriptions(info, List.of());
             res.add(parsed.get(0));
+            res.add("false");
         } else if (info.get(0).equals("deadline")) {
             List<String> parsed = parseDescriptions(info, List.of("/by"));
             if (parsed.size() < 2) {
                 throw new MissingArgumentException();
             }
-            res.addAll(parsed.subList(0, 2));
+            res.add(parsed.get(0));
+            res.add("false");
+            res.add(Parser.toLocalDateTime(parsed.get(1)).toString());
         } else if (info.get(0).equals("event")) {
             List<String> parsed = parseDescriptions(info, List.of("/from", "/to"));
             if (parsed.size() < 3) {
                 throw new MissingArgumentException();
             }
-            res.addAll(parsed.subList(0, 3));
+            res.add(parsed.get(0));
+            res.add("false");
+            res.add(Parser.toLocalDateTime(parsed.get(1)).toString());
+            res.add(Parser.toLocalDateTime(parsed.get(2)).toString());
         } else {
             throw new InvalidCommandException();
         }
         return res;
-    }
-
-    /**
-     * Converts a string representation of date and time to LocalDateTime.
-     * 
-     * @param dateAndTime The string representation of date and time.
-     * @return The converted instance of LocalDateTime.
-     * @throws InvalidDateException Thrown when the format is invalid.
-     */
-    public static LocalDateTime toLocalDateTime(String dateAndTime) throws InvalidDateException {
-        try {
-            return LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateException();
-        }
     }
 }

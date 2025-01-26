@@ -54,6 +54,66 @@ public class Ui {
     }
 
     /**
+     * Print an error message.
+     * 
+     * @param message The message expressing the error.
+     */
+    public void printError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
+
+    /**
+     * Changes a line by printing "\n".
+     */
+    public void changeLine() {
+        System.out.println();
+    }
+
+    /**
+     * Notifies the user of the addition of new task.
+     * 
+     * @param taskDescription A string representation of newly added task.
+     */
+    public void addTask(String taskDescription) {
+        System.out.println("added: " + taskDescription);
+    }
+
+    /**
+     * Notifies the user of the removal of task.
+     * 
+     * @param taskDescription A string representation of removed task.
+     */
+    public void removeTask(String taskDescription) {
+        System.out.println("Noted. I've removed this task:\n" + taskDescription);
+    }
+
+    /**
+     * Notifies the user of the marking of task.
+     * 
+     * @param taskDescription A string representation of marked task.
+     */
+    public void markTask(String taskDescription) {
+        System.out.println("Wonderful! I've marked this task as completed:\n" + taskDescription);
+    }
+
+    /**
+     * Notifies the user of the unmarking of task.
+     * 
+     * @param taskDescription A string representation of unmarked task.
+     */
+    public void unmarkTask(String taskDescription) {
+        System.out.println("Okay, I've marked this task as incompleted:\n" + taskDescription);
+    }
+
+    /**
+     * Notifies the user of the completion of loading the previous log.
+     */
+    public void completeLoad() {
+        System.out.println("Sucessfully loaded the previous log!\n" 
+        + "Here is the list of current tasks.");
+    }
+
+    /**
      * Read a new line of user input.
      * 
      * @return The string representing the input.

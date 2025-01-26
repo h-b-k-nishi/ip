@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * A class deals with loading tasks from the file and saving tasks in the file.
@@ -9,6 +12,33 @@ import java.io.IOException;
  */
 public class Storage {
     private String DIR = "./../data/", FILE = DIR + "log.txt";
+
+    /**
+     * Loads a log from previous session.
+     * 
+     * @return A list of strings representing log information.
+     */
+    public List<String> readLog() throws IOException  {
+        List<String> res = new ArrayList<>();
+        File folder = new File(DIR);
+        if (!folder.exists()) {
+            return res;
+        }
+        File logFile = new File(FILE);
+        if (!logFile.exists()) {
+            return res;
+        }
+        Scanner sc = new Scanner(logFile);
+        try {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                res.add(line);
+            }
+        } finally {
+            sc.close();
+        }
+        return res;
+    }
 
     /**
      * Creates a file logging the information of tasks.

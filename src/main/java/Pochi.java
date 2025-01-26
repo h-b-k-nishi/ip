@@ -22,19 +22,42 @@ public class Pochi {
             ui.printList(tasks.status());
         } else if(command.get(0).equals("mark")) {
             int index = Integer.parseInt(command.get(1));
-            tasks.mark(index);
+            Task marked = tasks.mark(index);
+            ui.markTask(marked.toString());
         } else if (command.get(0).equals("unmark")) {
             int index = Integer.parseInt(command.get(1));
-            tasks.unmark(index);
+            Task unmarked = tasks.unmark(index);
+            ui.unmarkTask(unmarked.toString());
         } else if (command.get(0).equals("delete")) {
             int index = Integer.parseInt(command.get(1));
-            tasks.delete(index);
+            Task removed = tasks.delete(index);
+            ui.removeTask(removed.toString());
         } else {
-            tasks.addTask(Task.of(command));
+            Task added = tasks.addTask(Task.of(command));
+            ui.addTask(added.toString());
+        }
+    }
+
+    private void processPreviousLog() {
+        try {
+            List<String> logs = storage.readLog();
+            for (int i = 0; i < logs.size(); i++) {
+                tasks.addTask(Task.of(List.of(logs.get(i).split(" \\| "))));
+            }
+            if (!tasks.isEmpty()) {
+                ui.completeLoad();
+                ui.printList(tasks.status());
+                ui.changeLine();
+            }
+        } catch (Exception e) {
+            ui.printError("Oops! Some error occurred when loading the log from the previous session.");
+            ui.printError("The history of previous session is lost. I am very sorry...");
+            ui.changeLine();
         }
     }
 
     private void run() {
+        processPreviousLog();
         while (true){
             String command = ui.readInput();
             if (command.isEmpty()) {
@@ -52,13 +75,13 @@ public class Pochi {
             } catch (EmptyCommandException e) {
                 // Do noting
             } catch (CommandException e) {
-                System.out.println("Oops! Some error occurred!");
-                System.out.println(e);
+                ui.printError("Oops! Some error occurred!");
+                ui.printError(e.toString());
             } catch (IOException e) {
-                System.out.println("Oops! Some error occurred during the creating of log file.");
-                System.out.println("Please note that the current status of tasks is not saved, sorry...");
+                ui.printError("Oops! Some error occurred during the creation of log file.");
+                ui.printError("Please note that the current status of tasks is not saved, sorry...");
             }finally {
-                System.out.println();
+                ui.changeLine();
             }
         }
     }

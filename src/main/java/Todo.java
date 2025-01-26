@@ -30,6 +30,6 @@ public class Todo extends Task {
      */
     @Override
     public String log() {
-        return "T | " + super.log();
+        return "todo | " + super.log();
     }
 }

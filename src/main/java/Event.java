@@ -38,6 +38,6 @@ public class Event extends Task {
      */
     @Override
     public String log() {
-        return "E | " + super.log() + " | " + this.startTime + " | " + this.endTime;
+        return "event | " + super.log() + " | " + this.startTime + " | " + this.endTime;
     }
 }

@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,16 +30,19 @@ public class Task {
      * @return The newly created instance of Task.
      */
     public static Task of(List<String> descriptions) throws TaskCreationException {
+        Task res;
         if (descriptions.get(0).equals("todo")) {
-            return new Todo(descriptions.get(1));
+            res = new Todo(descriptions.get(1));
         } else if (descriptions.get(0).equals("deadline")) {
-            return new Deadline(descriptions.get(1), Parser.toLocalDateTime(descriptions.get(2)));
+            res = new Deadline(descriptions.get(1), LocalDateTime.parse(descriptions.get(3)));
         } else if (descriptions.get(0).equals("event")) {
-            return new Event(descriptions.get(1), 
-            Parser.toLocalDateTime(descriptions.get(2)), Parser.toLocalDateTime(descriptions.get(3)));
+            res = new Event(descriptions.get(1), 
+            LocalDateTime.parse(descriptions.get(3)), LocalDateTime.parse(descriptions.get(4)));
         } else {
             throw new InvalidCommandException();
         }
+        res.isCompleted = Boolean.valueOf(descriptions.get(2));
+        return res;
     }
 
     /**
@@ -71,6 +75,6 @@ public class Task {
      * @return The string description
      */
     public String log() {
-        return this.isCompleted + " | " + this.description;
+        return this.description + " | " + this.isCompleted;
     }
 }
