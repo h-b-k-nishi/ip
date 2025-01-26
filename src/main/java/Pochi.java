@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.io.IOException;
 import java.util.List;
 
@@ -8,78 +7,58 @@ import java.util.List;
  * @author Hibiki Nishiwaki
  */
 public class Pochi {
-    private static final String GREET = "Hello! I'm Pochi.\n"
-        + "What can I do for you?\n",
-        FAREWELL = "Bye. Hope to see you again soon!\n";
-    
+    private final Ui ui;
     private final Storage storage;
+    private final TaskList tasks;
 
     private Pochi() {
+        ui = new Ui();
         storage = new Storage();
+        tasks = new TaskList();
     }
 
-    private void processCommand(String command) throws CommandException {
-        List<String> info = List.of(command.split(" "));
-        if (info.isEmpty()) {
+    private void processCommand(List<String> command) throws CommandException {
+        if (command.isEmpty()) {
             throw new EmptyCommandException();
         }
-        if (info.get(0).equals("list")) {
-            storage.listUp();
-        } else if(info.get(0).equals("mark")) {
-            if (info.size() < 2) {
+        if (command.get(0).equals("list")) {
+            ui.printList(tasks.status());
+        } else if(command.get(0).equals("mark")) {
+            if (command.size() < 2) {
                 throw new MissingArgumentException();
             }
-            int index = Integer.parseInt(info.get(1));
-            try {
-                storage.mark(index);
-            } catch (IndexOutOfBoundsException e) {
-                throw e;
-            }
-        } else if (info.get(0).equals("unmark")) {
-            if (info.size() < 2) {
+            int index = Integer.parseInt(command.get(1));
+            tasks.mark(index);
+        } else if (command.get(0).equals("unmark")) {
+            if (command.size() < 2) {
                 throw new MissingArgumentException();
             }
-            int index = Integer.parseInt(info.get(1));
-            try {
-                storage.unmark(index);
-            } catch (IndexOutOfBoundsException e) {
-                throw e;
-            }
-        } else if (info.get(0).equals("delete")) {
-            if (info.size() < 2) {
+            int index = Integer.parseInt(command.get(1));
+            tasks.unmark(index);
+        } else if (command.get(0).equals("delete")) {
+            if (command.size() < 2) {
                 throw new MissingArgumentException();
             }
-            int index = Integer.parseInt(info.get(1));
-            try {
-                storage.delete(index);
-            } catch (IndexOutOfBoundsException e) {
-                throw e;
-            }
+            int index = Integer.parseInt(command.get(1));
+            tasks.delete(index);
         } else {
-            try {
-                storage.addTask(Task.of(info));
-            } catch (CommandException e) {
-                throw e;
-            }
+            tasks.addTask(Parser.parseTask(command));
         }
     }
 
     private void run() {
-        System.out.println(GREET);
-        Scanner sc = new Scanner(System.in);
         while (true){
-            String command = sc.nextLine();
+            List<String> command = ui.readInput();
             if (command.isEmpty()) {
                 continue;
             }
-            if (command.equals("bye")) {
-                System.out.println(FAREWELL);
+            if (command.get(0).equals("bye")) {
                 break;
             }
             try {
                 processCommand(command);
-                storage.printStatus();
-                storage.createLog();
+                ui.printStatus(tasks.getNumberOfTasks());
+                storage.createLog(tasks.log());
             } catch (EmptyCommandException e) {
                 // Do noting
             } catch (CommandException e) {
@@ -92,7 +71,7 @@ public class Pochi {
                 System.out.println();
             }
         }
-        sc.close();
+        ui.exit();
     }
     public static void main(String[] args) {
         Pochi pochi = new Pochi();
