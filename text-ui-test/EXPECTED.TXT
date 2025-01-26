@@ -4,17 +4,23 @@ What can I do for you?
 added: [T] [ ] return book
 Now you have 1 tasks in the list.
 
-added: [D] [ ] homework 2 (by: Monday 9pm)
+added: [D] [ ] homework 2 (by: Jan 29 2025 11:30)
 Now you have 2 tasks in the list.
 
-added: [E] [ ] special lecture by Mr. Taro (from: Tuesday 2pm to: 4pm)
+added: [E] [ ] special lecture by Mr. Taro (from: Jan 31 2025 02:00 to: Jan 31 2025 03:00)
 Now you have 3 tasks in the list.
 
 added: [T] [ ] send      e-mail to my friend nicknamed "Hanako"
 Now you have 4 tasks in the list.
 
-added: [D] [ ] assignment 3 create by Prof. Jun (by: Tomorrow)
-Now you have 5 tasks in the list.
+Oops! Some error occurred!
+InvalidDateException: Invalid format of date! The format has to be yyyy-mm-dd hh:mm.
+
+Oops! Some error occurred!
+InvalidDateException: Invalid format of date! The format has to be yyyy-mm-dd hh:mm.
+
+Oops! Some error occurred!
+MissingArgumentException: Some arguments (/by, /from, /to, or the index of task) are missing!!
 
 Bye. Hope to see you again soon!
 
