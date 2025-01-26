@@ -1,4 +1,5 @@
 package pochi.exceptions;
+
 /**
  * An abstract class that encapsulates all the exceptions 
  * occurred during a creation of task.

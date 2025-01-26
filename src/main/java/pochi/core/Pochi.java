@@ -1,7 +1,12 @@
 package pochi.core;
+
 import java.io.IOException;
+
 import java.util.List;
-import pochi.exceptions.*;
+
+import pochi.exceptions.CommandException;
+import pochi.exceptions.EmptyCommandException;
+
 import pochi.tasks.Task;
 
 /**
@@ -20,23 +25,30 @@ public class Pochi {
         tasks = new TaskList();
     }
 
-    private void processCommand(List<String> command) throws CommandException {
-        if (command.get(0).equals("list")) {
-            ui.printList(tasks.status());
-        } else if(command.get(0).equals("mark")) {
-            int index = Integer.parseInt(command.get(1));
-            Task marked = tasks.mark(index);
+    private void processCommand(List<String> commands) throws CommandException {
+        if (commands.get(0).equals("list")) {
+            ui.printList(tasks.getStatus());
+        } else if (commands.get(0).equals("mark")) {
+            int index = Integer.parseInt(commands.get(1));
+
+            Task marked = tasks.markTask(index);
+
             ui.markTask(marked.toString());
-        } else if (command.get(0).equals("unmark")) {
-            int index = Integer.parseInt(command.get(1));
-            Task unmarked = tasks.unmark(index);
+        } else if (commands.get(0).equals("unmark")) {
+            int index = Integer.parseInt(commands.get(1));
+
+            Task unmarked = tasks.unmarkTask(index);
+
             ui.unmarkTask(unmarked.toString());
-        } else if (command.get(0).equals("delete")) {
-            int index = Integer.parseInt(command.get(1));
-            Task removed = tasks.delete(index);
+        } else if (commands.get(0).equals("delete")) {
+            int index = Integer.parseInt(commands.get(1));
+
+            Task removed = tasks.deleteTask(index);
+
             ui.removeTask(removed.toString());
         } else {
-            Task added = tasks.addTask(Task.of(command));
+            Task added = tasks.addTask(Task.createTask(commands));
+
             ui.addTask(added.toString());
         }
     }
@@ -44,16 +56,19 @@ public class Pochi {
     private void processPreviousLog() {
         try {
             List<String> logs = storage.readLog();
+
             for (int i = 0; i < logs.size(); i++) {
-                tasks.addTask(Task.of(List.of(logs.get(i).split(" \\| "))));
+                tasks.addTask(Task.createTask(List.of(logs.get(i).split(" \\| "))));
             }
+            
             if (!tasks.isEmpty()) {
                 ui.completeLoad();
-                ui.printList(tasks.status());
+                ui.printList(tasks.getStatus());
                 ui.changeLine();
             }
         } catch (Exception e) {
-            ui.printError("Oops! Some error occurred when loading the log from the previous session.");
+            ui.printError(
+                    "Oops! Some error occurred when loading the log from the previous session.");
             ui.printError("The history of previous session is lost. I am very sorry...");
             ui.changeLine();
         }
@@ -61,20 +76,27 @@ public class Pochi {
 
     private void run() {
         processPreviousLog();
-        while (true){
+
+        while (true) {
             String command = ui.readInput();
+
             if (command.isEmpty()) {
                 continue;
             }
+
             try {
-                List<String> parsed = Parser.parse(command);
-                if (parsed.get(0).equals("bye")) {
+                List<String> parsedCommands = Parser.parseCommand(command);
+
+                if (parsedCommands.get(0).equals("bye")) {
                     ui.exit();
                     break;
                 }
-                processCommand(parsed);
+
+                processCommand(parsedCommands);
+
                 ui.printStatus(tasks.getNumberOfTasks());
-                storage.createLog(tasks.log());
+
+                storage.createLog(tasks.getLog());
             } catch (EmptyCommandException e) {
                 // Do noting
             } catch (CommandException e) {
@@ -82,7 +104,8 @@ public class Pochi {
                 ui.printError(e.toString());
             } catch (IOException e) {
                 ui.printError("Oops! Some error occurred during the creation of log file.");
-                ui.printError("Please note that the current status of tasks is not saved, sorry...");
+                ui.printError(
+                        "Please note that the current status of tasks is not saved, sorry...");
             }finally {
                 ui.changeLine();
             }
@@ -90,6 +113,7 @@ public class Pochi {
     }
     public static void main(String[] args) {
         Pochi pochi = new Pochi();
+
         pochi.run();
     }
 }

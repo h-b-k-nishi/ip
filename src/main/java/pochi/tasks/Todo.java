@@ -1,5 +1,7 @@
 package pochi.tasks;
+
 import pochi.exceptions.EmptyDescriptionException;
+
 /**
  * A class that represents a Todo task.
  * 
@@ -31,7 +33,7 @@ public class Todo extends Task {
      * @return The string description
      */
     @Override
-    public String log() {
-        return "todo | " + super.log();
+    public String getLog() {
+        return "todo | " + super.getLog();
     }
 }

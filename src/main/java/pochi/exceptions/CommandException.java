@@ -1,4 +1,5 @@
 package pochi.exceptions;
+
 /**
  * An abstract class that encapsulates all the exceptions 
  * occurred during the procession of a command.
@@ -12,6 +13,7 @@ public abstract class CommandException extends Exception {
     public CommandException() {
         super();
     }
+
     /**
      * The constructor of exception.
      * 

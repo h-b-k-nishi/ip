@@ -1,7 +1,10 @@
 package pochi.core;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import pochi.exceptions.IndexOutOfBoundException;
+
 import pochi.tasks.Task;
 
 /**
@@ -11,6 +14,7 @@ import pochi.tasks.Task;
  */
 public class TaskList {
     private final List<Task> tasks;
+
     /**
      * The constructor of task list, which creates an empty array of tasks.
      */
@@ -26,6 +30,7 @@ public class TaskList {
      */
     public Task addTask(Task task) {
         tasks.add(task);
+
         return task;
     }
 
@@ -35,10 +40,12 @@ public class TaskList {
      * @param index The index of task removed.
      * @return The removed task.
      */
-    public Task delete(int index) throws IndexOutOfBoundException {
+    public Task deleteTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task removed = tasks.get(index-1);
+
             tasks.remove(index-1);
+
             return removed;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -52,10 +59,12 @@ public class TaskList {
      * It has to satisfy: 1 <= index <= (current number of tasks).
      * @return The marked task.
      */
-    public Task mark(int index) throws IndexOutOfBoundException {
+    public Task markTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task marked = tasks.get(index-1);
+
             marked.mark();
+
             return marked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -69,10 +78,12 @@ public class TaskList {
      * It has to satisfy: 1 <= index <= (current number of tasks).
      * @return The unmarked task.
      */
-    public Task unmark(int index) throws IndexOutOfBoundException {
+    public Task unmarkTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task unmarked = tasks.get(index-1);
+
             unmarked.unmark();
+
             return unmarked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -85,7 +96,7 @@ public class TaskList {
      * @return The current length of task list.
      */
     public int getNumberOfTasks() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
@@ -94,7 +105,7 @@ public class TaskList {
      * @return True if it is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return this.tasks.isEmpty();
+        return tasks.isEmpty();
     }
 
     /**
@@ -102,12 +113,14 @@ public class TaskList {
      * 
      * @return The list of string representation.
      */
-    public List<String> status() {
-        List<String> res = new ArrayList<>();
+    public List<String> getStatus() {
+        List<String> descriptions = new ArrayList<>();
+
         for (int i = 0; i < tasks.size(); i++) {
-            res.add((i+1) + ". " + tasks.get(i));
+            descriptions.add((i+1) + ". " + tasks.get(i));
         }
-        return res;
+
+        return descriptions;
     }
 
     /**
@@ -115,11 +128,13 @@ public class TaskList {
      * 
      * @return The string represetation of log.
      */
-    public String log() {
-        String res = "";
+    public String getLog() {
+        String log = "";
+
         for (int i = 0; i < tasks.size(); i++) {
-            res += tasks.get(i).log() + "\n";
+            log += tasks.get(i).getLog() + "\n";
         }
-        return res;
+
+        return log;
     }
 }

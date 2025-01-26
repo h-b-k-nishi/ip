@@ -1,7 +1,11 @@
 package pochi.tasks;
+
 import java.time.LocalDateTime;
+
 import pochi.core.Ui;
+
 import pochi.exceptions.EmptyDescriptionException;
+
 /**
  * A class that represents a task with deadline.
  * 
@@ -9,6 +13,7 @@ import pochi.exceptions.EmptyDescriptionException;
  */
 public class Deadline extends Task {
     private final LocalDateTime deadline;
+
     /**
      * The constructor of Deadline task.
      * 
@@ -17,6 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime deadline) throws EmptyDescriptionException {
         super(description);
+
         this.deadline = deadline;
     }
 
@@ -36,7 +42,7 @@ public class Deadline extends Task {
      * @return The string description
      */
     @Override
-    public String log() {
-        return "deadline | " + super.log() + " | " + this.deadline;
+    public String getLog() {
+        return "deadline | " + super.getLog() + " | " + this.deadline;
     }
 }

@@ -1,8 +1,15 @@
 package pochi.tasks;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+
 import java.util.List;
-import pochi.exceptions.*;
+
+import pochi.exceptions.EmptyDescriptionException;
+import pochi.exceptions.InvalidCommandException;
+import pochi.exceptions.InvalidDateException;
+import pochi.exceptions.MissingArgumentException;
+import pochi.exceptions.TaskCreationException;
 
 /**
  * A class that represents a task.
@@ -22,6 +29,7 @@ public class Task {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException();
         }
+
         this.description = description;
         this.isCompleted = false;
     }
@@ -32,22 +40,27 @@ public class Task {
      * @param descriptions The descriptions of instance.
      * @return The newly created instance of Task.
      */
-    public static Task of(List<String> descriptions) throws TaskCreationException {
+    public static Task createTask(List<String> descriptions) throws TaskCreationException {
         Task res;
+
         if (descriptions.isEmpty()) {
             throw new MissingArgumentException();
         }
+
         if (descriptions.get(0).equals("todo")) {
             if (descriptions.size() < 3) {
                 throw new MissingArgumentException();
             }
+
             res = new Todo(descriptions.get(1));
         } else if (descriptions.get(0).equals("deadline")) {
             if (descriptions.size() < 4) {
                 throw new MissingArgumentException();
             }
+
             try {
-                res = new Deadline(descriptions.get(1), LocalDateTime.parse(descriptions.get(3)));
+                res = new Deadline(descriptions.get(1), 
+                        LocalDateTime.parse(descriptions.get(3)));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }
@@ -55,16 +68,20 @@ public class Task {
             if (descriptions.size() < 5) {
                 throw new MissingArgumentException();
             }
+
             try {
                 res = new Event(descriptions.get(1), 
-                LocalDateTime.parse(descriptions.get(3)), LocalDateTime.parse(descriptions.get(4)));
+                        LocalDateTime.parse(descriptions.get(3)), 
+                                LocalDateTime.parse(descriptions.get(4)));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }
         } else {
             throw new InvalidCommandException();
         }
+
         res.isCompleted = Boolean.valueOf(descriptions.get(2));
+
         return res;
     }
 
@@ -97,7 +114,7 @@ public class Task {
      * 
      * @return The string description
      */
-    public String log() {
+    public String getLog() {
         return this.description + " | " + this.isCompleted;
     }
 }

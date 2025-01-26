@@ -1,4 +1,5 @@
 package pochi.exceptions;
+
 /**
  * An exception indicates that a operation against an element of strorage,
  * denoted by its index, is out of range.
@@ -13,7 +14,7 @@ public class IndexOutOfBoundException extends CommandException {
      */
     public IndexOutOfBoundException(int sizeOfStorage) {
         super("The given index is out of bound.\n" 
-            + "You have " + sizeOfStorage + " tasks currently, " 
-                + "so input an index between 1 and " + sizeOfStorage + " inclusive.");
+                + "You have " + sizeOfStorage + " tasks currently, " 
+                        + "so input an index between 1 and " + sizeOfStorage + " inclusive.");
     }
 }
