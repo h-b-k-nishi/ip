@@ -1,5 +1,6 @@
 package pochi.tasks;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import pochi.exceptions.*;
 
@@ -33,13 +34,33 @@ public class Task {
      */
     public static Task of(List<String> descriptions) throws TaskCreationException {
         Task res;
+        if (descriptions.isEmpty()) {
+            throw new MissingArgumentException();
+        }
         if (descriptions.get(0).equals("todo")) {
+            if (descriptions.size() < 3) {
+                throw new MissingArgumentException();
+            }
             res = new Todo(descriptions.get(1));
         } else if (descriptions.get(0).equals("deadline")) {
-            res = new Deadline(descriptions.get(1), LocalDateTime.parse(descriptions.get(3)));
+            if (descriptions.size() < 4) {
+                throw new MissingArgumentException();
+            }
+            try {
+                res = new Deadline(descriptions.get(1), LocalDateTime.parse(descriptions.get(3)));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
         } else if (descriptions.get(0).equals("event")) {
-            res = new Event(descriptions.get(1), 
-            LocalDateTime.parse(descriptions.get(3)), LocalDateTime.parse(descriptions.get(4)));
+            if (descriptions.size() < 5) {
+                throw new MissingArgumentException();
+            }
+            try {
+                res = new Event(descriptions.get(1), 
+                LocalDateTime.parse(descriptions.get(3)), LocalDateTime.parse(descriptions.get(4)));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
         } else {
             throw new InvalidCommandException();
         }
