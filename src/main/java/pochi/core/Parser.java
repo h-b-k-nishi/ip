@@ -64,7 +64,8 @@ public class Parser {
             // do nothing
         } else if(info.get(0).equals("mark") 
         || info.get(0).equals("unmark")
-        || info.get(0).equals("delete")) {
+        || info.get(0).equals("delete")
+                || info.get(0).equals("find")) {
             if (info.size() < 2) {
                 throw new MissingArgumentException();
             }

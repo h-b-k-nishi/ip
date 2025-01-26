@@ -23,6 +23,12 @@ public class Pochi {
     private void processCommand(List<String> command) throws CommandException {
         if (command.get(0).equals("list")) {
             ui.printList(tasks.status());
+        } else if (command.get(0).equals("find")) {
+            List<String> results = tasks.findTask(command.get(1));
+
+            ui.notifySearchResult(results.size());
+            ui.printList(results);
+            ui.changeLine();
         } else if(command.get(0).equals("mark")) {
             int index = Integer.parseInt(command.get(1));
             Task marked = tasks.mark(index);

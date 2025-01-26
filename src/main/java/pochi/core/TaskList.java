@@ -122,4 +122,20 @@ public class TaskList {
         }
         return res;
     }
+
+    /**
+     * Returns a list of strings, representing tasks that contain the specified keyword.
+     * 
+     * @param keyword The specified keyword.
+     * @return The list of string representations.
+     */
+    public List<String> findTask(String keyword) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).containsKeyword(keyword)) {
+                res.add((i+1) + ". " + tasks.get(i));
+            }
+        }
+        return res;
+    }
 }
