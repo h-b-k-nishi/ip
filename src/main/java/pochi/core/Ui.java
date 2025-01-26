@@ -121,7 +121,16 @@ public class Ui {
     }
 
     /**
-     * Reads a new line of user input.
+     * Notifies the user of the result of searching.
+     * 
+     * @param numberOfTasksFound The number of tasks meeting the condition.
+     */
+    public void notifySearchResult(int numberOfTasksFound) {
+        System.out.println(numberOfTasksFound + " tasks are found:");
+    }
+
+    /**
+     * Read a new line of user input.
      * 
      * @return The string representing the input.
      */

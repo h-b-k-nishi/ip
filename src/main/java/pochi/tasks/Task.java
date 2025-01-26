@@ -119,4 +119,14 @@ public class Task {
     public String getLog() {
         return this.description + " | " + this.isCompleted;
     }
+
+    /**
+     * Checks if the given keyword is contained in task description.
+     * 
+     * @param keyword The keyword being examined.
+     * @return True if the keyword is contained, false otherwise.
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
