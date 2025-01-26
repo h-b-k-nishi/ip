@@ -14,7 +14,7 @@ public class Task {
     private boolean isCompleted;
 
     /**
-     * The constructor of task.
+     * Constructs a new instance of Task.
      * 
      * @param description The description of task.
      * @throws EmptyDescriptionException Thrown when the given description is empty.
@@ -71,21 +71,21 @@ public class Task {
     }
 
     /**
-     * Mark this task as completed.
+     * Marks this task as completed.
      */
     public void mark() {
         this.isCompleted = true;
     }
 
     /**
-     * Mark this task as uncompleted.
+     * Marks this task as uncompleted.
      */
     public void unmark() {
         this.isCompleted = false;
     }
 
     /**
-     * Return the string representation of this task.
+     * Returns the string representation of this task.
      * 
      * @return The string consisting of the description of task.
      */

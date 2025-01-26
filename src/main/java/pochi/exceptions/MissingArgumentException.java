@@ -7,7 +7,7 @@ package pochi.exceptions;
  */
 public class MissingArgumentException extends TaskCreationException {
     /**
-     * The constructor of this exception.
+     * Constructs a new instance of this exception.
      */
     public MissingArgumentException() {
         super("Some arguments (/by, /from, /to, or the index of task) are missing!!");

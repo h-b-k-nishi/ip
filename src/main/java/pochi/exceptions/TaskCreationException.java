@@ -7,7 +7,7 @@ package pochi.exceptions;
  */
 public abstract class TaskCreationException extends CommandException {
     /**
-     * The constructor of exception.
+     * Constructs a new instance of this exception.
      * 
      * @param description A string describing this exceptional situation.
      */

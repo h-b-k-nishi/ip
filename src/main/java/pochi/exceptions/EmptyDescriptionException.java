@@ -7,7 +7,7 @@ package pochi.exceptions;
  */
 public class EmptyDescriptionException extends TaskCreationException {
     /**
-     * The constructor of this exception.
+     * Constructs a new instance of this exception.
      */
     public EmptyDescriptionException() {
         super("Your task description (i.e. task name) is empty!");

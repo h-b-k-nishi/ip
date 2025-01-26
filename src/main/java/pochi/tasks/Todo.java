@@ -7,7 +7,7 @@ import pochi.exceptions.EmptyDescriptionException;
  */
 public class Todo extends Task {
     /**
-     * The constructor of Todo task.
+     * Constructs a new instance of Todo task.
      * 
      * @param description The description of task.
      * @throws EmptyDescriptionException Thrown when the given description is empty.
@@ -17,7 +17,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the string representation of this Todo task.
+     * Returns the string representation of this Todo task.
      * 
      * @return The string consisting of the description of task.
      */

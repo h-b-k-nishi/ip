@@ -8,9 +8,11 @@ import pochi.exceptions.EmptyDescriptionException;
  * @author Hibiki Nishiwaki
  */
 public class Deadline extends Task {
+    /** The deadline of this deadline. */
     private final LocalDateTime deadline;
+
     /**
-     * The constructor of Deadline task.
+     * Constructs a new instance of Deadline task.
      * 
      * @param description The description of task.
      * @param deadline The deadline of task.
@@ -22,7 +24,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the string representation of this Deadline task.
+     * Returns the string representation of this Deadline task.
      * 
      * @return The string consisting of the description of task.
      */

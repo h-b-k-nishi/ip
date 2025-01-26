@@ -10,14 +10,18 @@ import java.util.Scanner;
  * @author Hibiki Nishiwaki
  */
 public class Ui {
-    private static final String GREET = "Hello! I'm Pochi.\n"
-        + "What can I do for you?\n",
-        FAREWELL = "Bye. Hope to see you again soon!";
+    /** The string representation of greet message. */
+    private static final String GREET = "Hello! I'm Pochi.\n" + "What can I do for you?\n";
+
+    /** The string representation of farewell message. */
+    private static final String FAREWELL = "Bye. Hope to see you again soon!";
+
+    /** A scanner which will be used for the interaction with the user through standard I/O. */
     private final Scanner sc;
 
     /**
-     * The constructor of Ui, which initializes the scanner 
-     * from standard input and greets to the user.
+     * Constructs a new instance of Ui, 
+     * initializaing the scannerfrom standard input and greeting to the user.
      */
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -53,7 +57,7 @@ public class Ui {
     }
 
     /**
-     * Print an error message.
+     * Prints an error message.
      * 
      * @param message The message expressing the error.
      */
@@ -113,7 +117,7 @@ public class Ui {
     }
 
     /**
-     * Read a new line of user input.
+     * Reads a new line of user input.
      * 
      * @return The string representing the input.
      */

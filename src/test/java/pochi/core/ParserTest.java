@@ -4,7 +4,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import pochi.exceptions.*;
 
+/**
+ * A class that tests Parser.
+ * 
+ * @author Hibiki Nishiwaki
+ */
 public class ParserTest {
+    /**
+     * Performs a test on a case where the input string represents an event,
+     * but it misses the /from argument.
+     */
     @Test
     public void noFromTest() {
         try {
@@ -14,6 +23,9 @@ public class ParserTest {
             assertEquals(e.getMessage(), "Some arguments (/by, /from, /to, or the index of task) are missing!!");
         }
     }
+    /**
+     * Performs a test on a case where the input contains a lot of spaces.
+     */
     @Test
     public void multipleSpacesTest() {
         try {

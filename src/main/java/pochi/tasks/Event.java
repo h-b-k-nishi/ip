@@ -8,10 +8,14 @@ import pochi.exceptions.EmptyDescriptionException;
  * @author Hibiki Nishiwaki
  */
 public class Event extends Task {
+    /** The starting time of this event. */
     private final LocalDateTime startTime;
+
+    /** The starting time of this event. */
     private final LocalDateTime endTime;
+    
     /**
-     * The constructor of Event task.
+     * Constructs a new instance of Event.
      * 
      * @param description The description of task.
      * @param startTime The start time of event.
@@ -25,7 +29,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return the string representation of this Event task.
+     * Returns the string representation of this Event task.
      * 
      * @return The string consisting of the description of task.
      */

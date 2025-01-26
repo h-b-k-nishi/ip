@@ -6,7 +6,7 @@ package pochi.exceptions;
  */
 public class InvalidCommandException extends TaskCreationException {
     /**
-     * The constructor of this exception.
+     * Constructs a new instance of this exception.
      */
     public InvalidCommandException() {
         super("Please enter a valid one starting with: list / mark / unmark / todo / deadline / event.");

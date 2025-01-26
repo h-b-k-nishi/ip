@@ -12,7 +12,11 @@ import java.util.Scanner;
  * @author Hibiki Nishiwaki
  */
 public class Storage {
-    private String DIR = "./data/", FILE = DIR + "log.txt";
+    /** A string representing the path to the directly, which contains the log file. */
+    private String DIR = "./data/";
+
+    /** A string representing the path to the log file. */
+    private String FILE = DIR + "log.txt";
 
     /**
      * Loads a log from previous session.

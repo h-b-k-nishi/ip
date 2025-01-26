@@ -7,7 +7,7 @@ package pochi.exceptions;
  */
 public class IndexOutOfBoundException extends CommandException {
     /**
-     * The constructor of exception.
+     * Constructs a new instance of this exception.
      * 
      * @param sizeOfStorage The current size of storage (i.e. the lengh of array tasks).
      */

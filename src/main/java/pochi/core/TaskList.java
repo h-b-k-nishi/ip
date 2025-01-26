@@ -10,16 +10,18 @@ import pochi.tasks.Task;
  * @author Hibiki Nishiwaki
  */
 public class TaskList {
+    /** A list of tasks. */
     private final List<Task> tasks;
+
     /**
-     * The constructor of task list, which creates an empty array of tasks.
+     * Constructs a new TaskList, initializing an empty array of tasks.
      */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
     /**
-     * Add a new task.
+     * Adds a new task.
      * 
      * @param task The new task going to be added.
      * @return The newly added task.
@@ -30,7 +32,7 @@ public class TaskList {
     }
 
     /**
-     * Remove a task.
+     * Removes a task.
      * 
      * @param index The index of task removed.
      * It has to satisfy: 1 <= index <= (current number of tasks).
@@ -48,7 +50,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as completed.
+     * Marks a task as completed.
      * 
      * @param index The index of task marked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
@@ -66,7 +68,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as incompleted.
+     * Marks a task as incompleted.
      * 
      * @param index The index of task unmarked. 
      * It has to satisfy: 1 <= index <= (current number of tasks).
@@ -93,7 +95,7 @@ public class TaskList {
     }
 
     /**
-     * Check if this task list is empty.
+     * Checks if this task list is empty.
      * 
      * @return True if it is empty, false otherwise.
      */
