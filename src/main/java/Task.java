@@ -95,4 +95,13 @@ public class Task {
     public String toString() {
         return (this.isCompleted ? "[X]" : "[ ]") + " " + this.description;
     }
+
+    /**
+     * Returns a short description of this task.
+     * 
+     * @return The string description
+     */
+    public String log() {
+        return this.isCompleted + " | " + this.description;
+    }
 }

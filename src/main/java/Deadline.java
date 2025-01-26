@@ -25,4 +25,14 @@ public class Deadline extends Task {
     public String toString() {
         return "[D] " + super.toString() + " (by: " + this.deadline + ")";
     }
+
+    /**
+     * Returns a short description of this task.
+     * 
+     * @return The string description
+     */
+    @Override
+    public String log() {
+        return "D | " + super.log() + " | " + this.deadline;
+    }
 }

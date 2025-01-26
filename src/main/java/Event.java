@@ -29,4 +29,14 @@ public class Event extends Task {
         return "[E] " + super.toString() 
         + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
+
+    /**
+     * Returns a short description of this task.
+     * 
+     * @return The string description
+     */
+    @Override
+    public String log() {
+        return "E | " + super.log() + " | " + this.startTime + " | " + this.endTime;
+    }
 }
