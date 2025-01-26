@@ -13,7 +13,7 @@ public class IndexOutOfBoundException extends CommandException {
      */
     public IndexOutOfBoundException(int sizeOfStorage) {
         super("The given index is out of bound.\n" 
-            + "You have " + sizeOfStorage + " tasks currently, " 
-                + "so input an index between 1 and " + sizeOfStorage + " inclusive.");
+                + "You have " + sizeOfStorage + " tasks currently, " 
+                        + "so input an index between 1 and " + sizeOfStorage + " inclusive.");
     }
 }

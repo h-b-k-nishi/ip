@@ -11,6 +11,7 @@ import pochi.tasks.Task;
  */
 public class TaskList {
     private final List<Task> tasks;
+
     /**
      * The constructor of task list, which creates an empty array of tasks.
      */
@@ -26,6 +27,7 @@ public class TaskList {
      */
     public Task addTask(Task task) {
         tasks.add(task);
+
         return task;
     }
 
@@ -38,7 +40,9 @@ public class TaskList {
     public Task deleteTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task removed = tasks.get(index-1);
+
             tasks.remove(index-1);
+
             return removed;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -55,7 +59,9 @@ public class TaskList {
     public Task markTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task marked = tasks.get(index-1);
+
             marked.mark();
+
             return marked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -72,7 +78,9 @@ public class TaskList {
     public Task unmarkTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task unmarked = tasks.get(index-1);
+
             unmarked.unmark();
+
             return unmarked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -104,9 +112,11 @@ public class TaskList {
      */
     public List<String> getStatus() {
         List<String> descriptions = new ArrayList<>();
+
         for (int i = 0; i < tasks.size(); i++) {
             descriptions.add((i+1) + ". " + tasks.get(i));
         }
+
         return descriptions;
     }
 
@@ -117,9 +127,11 @@ public class TaskList {
      */
     public String getLog() {
         String log = "";
+        
         for (int i = 0; i < tasks.size(); i++) {
             log += tasks.get(i).getLog() + "\n";
         }
+
         return log;
     }
 }

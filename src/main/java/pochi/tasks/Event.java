@@ -10,6 +10,7 @@ import pochi.exceptions.EmptyDescriptionException;
 public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
+
     /**
      * The constructor of Event task.
      * 
@@ -17,8 +18,10 @@ public class Event extends Task {
      * @param startTime The start time of event.
      * @param endTime The end time of event.
      */
-    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) throws EmptyDescriptionException {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) 
+            throws EmptyDescriptionException {
         super(description);
+        
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -31,7 +34,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " 
-        + Ui.formatDateTime(this.startTime) + " to: " + Ui.formatDateTime(this.endTime) + ")";
+                + Ui.formatDateTime(this.startTime) + " to: " + Ui.formatDateTime(this.endTime) + ")";
     }
 
     /**

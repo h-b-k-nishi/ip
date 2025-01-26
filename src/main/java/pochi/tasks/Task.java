@@ -22,6 +22,7 @@ public class Task {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException();
         }
+
         this.description = description;
         this.isCompleted = false;
     }
@@ -34,20 +35,25 @@ public class Task {
      */
     public static Task createTask(List<String> descriptions) throws TaskCreationException {
         Task res;
+
         if (descriptions.isEmpty()) {
             throw new MissingArgumentException();
         }
+
         if (descriptions.get(0).equals("todo")) {
             if (descriptions.size() < 3) {
                 throw new MissingArgumentException();
             }
+
             res = new Todo(descriptions.get(1));
         } else if (descriptions.get(0).equals("deadline")) {
             if (descriptions.size() < 4) {
                 throw new MissingArgumentException();
             }
+
             try {
-                res = new Deadline(descriptions.get(1), LocalDateTime.parse(descriptions.get(3)));
+                res = new Deadline(descriptions.get(1), 
+                        LocalDateTime.parse(descriptions.get(3)));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }
@@ -55,16 +61,20 @@ public class Task {
             if (descriptions.size() < 5) {
                 throw new MissingArgumentException();
             }
+
             try {
                 res = new Event(descriptions.get(1), 
-                LocalDateTime.parse(descriptions.get(3)), LocalDateTime.parse(descriptions.get(4)));
+                        LocalDateTime.parse(descriptions.get(3)), 
+                                LocalDateTime.parse(descriptions.get(4)));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }
         } else {
             throw new InvalidCommandException();
         }
+
         res.isCompleted = Boolean.valueOf(descriptions.get(2));
+
         return res;
     }
 

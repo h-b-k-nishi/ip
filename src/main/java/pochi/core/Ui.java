@@ -10,9 +10,8 @@ import java.util.Scanner;
  * @author Hibiki Nishiwaki
  */
 public class Ui {
-    private static final String GREET = "Hello! I'm Pochi.\n"
-        + "What can I do for you?\n",
-        FAREWELL = "Bye. Hope to see you again soon!";
+    private static final String GREET = "Hello! I'm Pochi.\n" + "What can I do for you?\n";
+    private static final String FAREWELL = "Bye. Hope to see you again soon!";
     private final Scanner scanner;
 
     /**
@@ -23,6 +22,7 @@ public class Ui {
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
+
         System.out.println(GREET);
     }
     
@@ -31,6 +31,7 @@ public class Ui {
      */
     public void exit() {
         System.out.println(FAREWELL);
+
         scanner.close();
     }
 
@@ -111,7 +112,7 @@ public class Ui {
      */
     public void completeLoad() {
         System.out.println("Sucessfully loaded the previous log!\n" 
-        + "Here is the list of current tasks.");
+                + "Here is the list of current tasks.");
     }
 
     /**

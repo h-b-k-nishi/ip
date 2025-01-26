@@ -12,6 +12,7 @@ public abstract class CommandException extends Exception {
     public CommandException() {
         super();
     }
+
     /**
      * The constructor of exception.
      * 
