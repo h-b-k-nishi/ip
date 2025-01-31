@@ -1,8 +1,7 @@
 package pochi.tasks;
 
-import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import pochi.exceptions.EmptyDescriptionException;
@@ -13,7 +12,7 @@ import pochi.exceptions.TaskCreationException;
 
 /**
  * A class that represents a task.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class Task {
@@ -22,7 +21,7 @@ public class Task {
 
     /**
      * Constructs a new instance of Task.
-     * 
+     *
      * @param description The description of task.
      * @throws EmptyDescriptionException Thrown when the given description is empty.
      */
@@ -37,7 +36,7 @@ public class Task {
 
     /**
      * Creates an instance of Task (or its subclass) based on the given information.
-     * 
+     *
      * @param descriptions The descriptions of instance.
      * @return The newly created instance of Task.
      * @throws TaskCreationException Thrown when some error occurs during the creation of task.
@@ -61,7 +60,7 @@ public class Task {
             }
 
             try {
-                res = new Deadline(descriptions.get(1), 
+                res = new Deadline(descriptions.get(1),
                         LocalDateTime.parse(descriptions.get(3)));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
@@ -72,8 +71,8 @@ public class Task {
             }
 
             try {
-                res = new Event(descriptions.get(1), 
-                        LocalDateTime.parse(descriptions.get(3)), 
+                res = new Event(descriptions.get(1),
+                        LocalDateTime.parse(descriptions.get(3)),
                                 LocalDateTime.parse(descriptions.get(4)));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
@@ -103,7 +102,7 @@ public class Task {
 
     /**
      * Returns the string representation of this task.
-     * 
+     *
      * @return The string consisting of the description of task.
      */
     @Override
@@ -113,7 +112,7 @@ public class Task {
 
     /**
      * Returns a short description of this task.
-     * 
+     *
      * @return The string description
      */
     public String getLog() {
@@ -122,7 +121,7 @@ public class Task {
 
     /**
      * Checks if the given keyword is contained in task description.
-     * 
+     *
      * @param keyword The keyword being examined.
      * @return True if the keyword is contained, false otherwise.
      */

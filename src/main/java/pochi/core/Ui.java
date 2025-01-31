@@ -1,14 +1,13 @@
 package pochi.core;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * A class deals with interactions with the user.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class Ui {
@@ -22,7 +21,7 @@ public class Ui {
     private final Scanner scanner;
 
     /**
-     * Constructs a new instance of Ui, 
+     * Constructs a new instance of Ui,
      * initializaing the scannerfrom standard input and greeting to the user.
      */
     public Ui() {
@@ -30,7 +29,7 @@ public class Ui {
 
         System.out.println(GREET);
     }
-    
+
     /**
      * Terminates the UI.
      */
@@ -42,7 +41,7 @@ public class Ui {
 
     /**
      * Prints the current status of task list.
-     * 
+     *
      * @param numberOfTasks The current number of tasks in the list.
      */
     public void printStatus(int numberOfTasks) {
@@ -51,19 +50,19 @@ public class Ui {
 
     /**
      * Prints a list of strings, representing tasks in the list.
-     * 
-     * @param list The list of string representations.
+     *
+     * @param descriptions The list of string representations.
      */
     public void printList(List<String> descriptions) {
-        for(int i = 0; i < descriptions.size(); i++) {
+        for (int i = 0; i < descriptions.size(); i++) {
             System.out.println(descriptions.get(i));
         }
     }
 
     /**
      * Prints an error message.
-     * 
-     * @param message The message expressing the error.
+     *
+     * @param errorMessage The message expressing the error.
      */
     public void printError(String errorMessage) {
         System.out.println(errorMessage);
@@ -78,7 +77,7 @@ public class Ui {
 
     /**
      * Notifies the user of the addition of new task.
-     * 
+     *
      * @param taskDescription A string representation of newly added task.
      */
     public void addTask(String taskDescription) {
@@ -87,7 +86,7 @@ public class Ui {
 
     /**
      * Notifies the user of the removal of task.
-     * 
+     *
      * @param taskDescription A string representation of removed task.
      */
     public void removeTask(String taskDescription) {
@@ -96,7 +95,7 @@ public class Ui {
 
     /**
      * Notifies the user of the marking of task.
-     * 
+     *
      * @param taskDescription A string representation of marked task.
      */
     public void markTask(String taskDescription) {
@@ -105,7 +104,7 @@ public class Ui {
 
     /**
      * Notifies the user of the unmarking of task.
-     * 
+     *
      * @param taskDescription A string representation of unmarked task.
      */
     public void unmarkTask(String taskDescription) {
@@ -116,13 +115,13 @@ public class Ui {
      * Notifies the user of the completion of loading the previous log.
      */
     public void completeLoad() {
-        System.out.println("Sucessfully loaded the previous log!\n" 
+        System.out.println("Sucessfully loaded the previous log!\n"
                 + "Here is the list of current tasks.");
     }
 
     /**
      * Notifies the user of the result of searching.
-     * 
+     *
      * @param numberOfTasksFound The number of tasks meeting the condition.
      */
     public void notifySearchResult(int numberOfTasksFound) {
@@ -131,7 +130,7 @@ public class Ui {
 
     /**
      * Read a new line of user input.
-     * 
+     *
      * @return The string representing the input.
      */
     public String readInput() {
@@ -140,7 +139,7 @@ public class Ui {
 
     /**
      * Returns a desirable format of date.
-     * 
+     *
      * @param dateAndTime A LocalDateTime converted to the desirable format.
      * @return A proper string representation of date.
      */

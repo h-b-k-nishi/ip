@@ -3,12 +3,11 @@ package pochi.tasks;
 import java.time.LocalDateTime;
 
 import pochi.core.Ui;
-
 import pochi.exceptions.EmptyDescriptionException;
 
 /**
  * A class that represents a task with deadline.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class Deadline extends Task {
@@ -17,7 +16,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new instance of Deadline task.
-     * 
+     *
      * @param description The description of task.
      * @param deadline The deadline of task.
      * @throws EmptyDescriptionException Thrown when the given description is empty.
@@ -30,7 +29,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of this Deadline task.
-     * 
+     *
      * @return The string consisting of the description of task.
      */
     @Override
@@ -40,7 +39,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a short description of this task.
-     * 
+     *
      * @return The string description
      */
     @Override

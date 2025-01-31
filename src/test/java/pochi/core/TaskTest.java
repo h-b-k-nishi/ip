@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * A class that tests Task.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class TaskTest {
@@ -17,12 +17,12 @@ public class TaskTest {
      */
     @Test
     public void missingArgumentTest() {
-        try{
+        try {
             Task task = Task.createTask(List.of("todo", "return book"));
 
-            assertEquals(0,1);
+            assertEquals(0, 1);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), 
+            assertEquals(e.getMessage(),
                     "Some arguments (/by, /from, /to, or the index of task) are missing!!");
         }
     }
@@ -31,10 +31,10 @@ public class TaskTest {
      */
     @Test
     public void invalidDateTimeTest() {
-        try{
+        try {
             Task task = Task.createTask(List.of("deadline", "hw2", "2025-02-03 09:10", "false"));
 
-            assertEquals(0,1);
+            assertEquals(0, 1);
         } catch (Exception e) {
             assertEquals(e.getMessage(), "Invalid format of date! The format has to be yyyy-mm-dd hh:mm.");
         }
@@ -44,10 +44,10 @@ public class TaskTest {
      */
     @Test
     public void leapYearTest() {
-        try{
+        try {
             Task task = Task.createTask(List.of("deadline", "hw2", "2024-02-29 09:10", "false"));
 
-            assertEquals(0,1);
+            assertEquals(0, 1);
         } catch (Exception e) {
             assertEquals(e.getMessage(), "Invalid format of date! The format has to be yyyy-mm-dd hh:mm.");
         }
@@ -57,10 +57,10 @@ public class TaskTest {
      */
     @Test
     public void emptyNameTest() {
-        try{
+        try {
             Task task = Task.createTask(List.of("todo", "", "false"));
 
-            assertEquals(0,1);
+            assertEquals(0, 1);
         } catch (Exception e) {
             assertEquals(e.getMessage(), "Your task description (i.e. task name) is empty!");
         }
@@ -70,7 +70,7 @@ public class TaskTest {
      */
     @Test
     public void eventWorkingTest() {
-        try{
+        try {
             Task task = Task.createTask(
                     List.of("event", "dinner", "2024/02/28 19:00", "2024/02/28 20:00", "FFF"));
 

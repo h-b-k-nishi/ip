@@ -2,7 +2,7 @@ package pochi.exceptions;
 
 /**
  * An exception indicates that the command given by the user is invalid.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class InvalidCommandException extends TaskCreationException {

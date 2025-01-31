@@ -1,17 +1,15 @@
 package pochi.core;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import pochi.exceptions.CommandException;
 import pochi.exceptions.EmptyCommandException;
-
 import pochi.tasks.Task;
 
 /**
  * A class represents a chatbot Pochi.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class Pochi {
@@ -70,7 +68,7 @@ public class Pochi {
             for (int i = 0; i < logs.size(); i++) {
                 tasks.addTask(Task.createTask(List.of(logs.get(i).split(" \\| "))));
             }
-            
+
             if (!tasks.isEmpty()) {
                 ui.completeLoad();
                 ui.printList(tasks.getStatus());
@@ -116,7 +114,7 @@ public class Pochi {
                 ui.printError("Oops! Some error occurred during the creation of log file.");
                 ui.printError(
                         "Please note that the current status of tasks is not saved, sorry...");
-            }finally {
+            } finally {
                 ui.changeLine();
             }
         }

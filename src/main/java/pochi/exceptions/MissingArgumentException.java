@@ -1,9 +1,8 @@
 package pochi.exceptions;
 
 /**
- * An exception indicates that some necessary arguments are missing 
- * from the user input.
- * 
+ * An exception indicates that some necessary arguments are missing from the user input.
+ *
  * @author Hibiki Nishiwaki
  */
 public class MissingArgumentException extends TaskCreationException {

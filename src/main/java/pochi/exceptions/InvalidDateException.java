@@ -2,7 +2,7 @@ package pochi.exceptions;
 
 /**
  * An exception indicates that a date given by the user has an invalid format.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class InvalidDateException extends TaskCreationException {

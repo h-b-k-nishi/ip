@@ -1,9 +1,8 @@
 package pochi.core;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import pochi.exceptions.MissingArgumentException;
 
 /**
  * A class parses commands from the user.
- * 
+ *
  * @author Hibiki Nishiwaki
  */
 public class Parser {
@@ -23,7 +22,7 @@ public class Parser {
     private static List<String> parseDescriptions(List<String> descriptions, List<String> separators) {
         List<String> parsedDescriptions = new ArrayList<>();
         String curr = "";
-        for(int i = 1, j = 0; i < descriptions.size(); i++) {
+        for (int i = 1, j = 0; i < descriptions.size(); i++) {
             if (j < separators.size() && descriptions.get(i).equals(separators.get(j))) {
                 parsedDescriptions.add(curr);
                 curr = "";
@@ -41,7 +40,7 @@ public class Parser {
 
     /**
      * Converts a string representation of date and time to LocalDateTime.
-     * 
+     *
      * @param dateAndTime The string representation of date and time.
      * @return The converted instance of LocalDateTime.
      * @throws InvalidDateException Thrown when the format is invalid.
@@ -53,10 +52,10 @@ public class Parser {
             throw new InvalidDateException();
         }
     }
-    
+
     /**
      * Parses a command given by the user.
-     * 
+     *
      * @param command The string representation of string.
      * @return A list of string consisting of the parsed strings.
      * @throws CommandException Thrown when the given command has an invalid format.
@@ -72,9 +71,9 @@ public class Parser {
 
         results.add(commands.get(0));
 
-        if (commands.get(0).equals("bye") || commands.get(0).equals("list")){
+        if (commands.get(0).equals("bye") || commands.get(0).equals("list")) {
             // do nothing
-        } else if(commands.get(0).equals("mark") 
+        } else if (commands.get(0).equals("mark")
                 || commands.get(0).equals("unmark")
                         || commands.get(0).equals("delete")
                                 || commands.get(0).equals("find")) {
