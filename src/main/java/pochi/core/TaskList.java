@@ -112,16 +112,16 @@ public class TaskList {
     /**
      * Returns a list of strings, representing tasks in the list.
      *
-     * @return The list of string representation.
+     * @return The string representation of tasks.
      */
-    public List<String> getStatus() {
-        List<String> descriptions = new ArrayList<>();
+    public String getStatus() {
+        String description = "";
 
         for (int i = 0; i < tasks.size(); i++) {
-            descriptions.add((i + 1) + ". " + tasks.get(i));
+            description += (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
 
-        return descriptions;
+        return description;
     }
 
     /**
