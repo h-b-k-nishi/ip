@@ -39,12 +39,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        //dialogContainer.getChildren().addAll(DialogBox.getPochiDialog(pochi.greet(), pochiIcon));
-        //dialogContainer.getChildren().addAll(DialogBox.getPochiDialog(pochi.processPreviousLog(), pochiIcon));
+    }
+
+    /**
+     * Starts the chat with Pochi and the user.
+     * It has Pochi greet and load the log from previous session.
+     */
+    public void beginConversation() {
+        dialogContainer.getChildren().addAll(DialogBox.getPochiDialog(pochi.greet(), pochiIcon));
+        dialogContainer.getChildren().addAll(DialogBox.getPochiDialog(pochi.processPreviousLog(), pochiIcon));
     }
 
     /** Injects the Pochi instance */
-    public void setDuke(Pochi p) {
+    public void setPochi(Pochi p) {
         pochi = p;
     }
 

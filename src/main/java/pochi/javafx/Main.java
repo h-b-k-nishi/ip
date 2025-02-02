@@ -25,7 +25,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(pochi);
+            fxmlLoader.<MainWindow>getController().setPochi(pochi);
+            fxmlLoader.<MainWindow>getController().beginConversation();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

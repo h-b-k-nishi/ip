@@ -21,7 +21,7 @@ public class Pochi {
     private final TaskList tasks;
 
     /**
-     * A constructor of Pochi, which initializes the storage and task list.
+     * Initializes the storage and task list.
      */
     public Pochi() {
         storage = new Storage();
