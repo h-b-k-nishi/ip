@@ -1,7 +1,12 @@
 package pochi.javafx;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,31 +16,35 @@ import javafx.scene.layout.HBox;
 
 /**
  * A class that represents one dialog box.
- * The idea is adopted from the JavaFX tutorial: https://se-education.org/guides/tutorials/javaFxPart2.html.
+ * Adopted from the JavaFX tutorial: https://se-education.org/guides/tutorials/javaFxPart4.html.
  *
- * @author Hibiki Nishiwaki
+ * @author Hibiki Nishiwaki -reuse
  */
 public class DialogBox extends HBox {
-    private Label text;
+    @FXML
+    private Label dialog;
+    @FXML
     private ImageView displayPicture;
 
     private DialogBox(String message, Image icon) {
-        text = new Label(message);
-        displayPicture = new ImageView(icon);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        text.setWrapText(true);
-        displayPicture.setFitWidth(80.0);
-        displayPicture.setFitHeight(80.0);
-        this.setAlignment(Pos.TOP_LEFT);
-
-        this.getChildren().addAll(displayPicture, text);
+        dialog.setText(message);
+        displayPicture.setImage(icon);
     }
 
     private void flip() {
-        this.setAlignment(Pos.TOP_RIGHT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
-        this.getChildren().setAll(tmp);
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
     }
 
     /**
@@ -45,9 +54,7 @@ public class DialogBox extends HBox {
      * @param icon The icon of sender.
      */
     public static DialogBox getUserDialog(String message, Image icon) {
-        var db = new DialogBox(message, icon);
-        db.flip();
-        return db;
+        return new DialogBox(message, icon);
     }
 
     /**
@@ -57,6 +64,8 @@ public class DialogBox extends HBox {
      * @param icon The icon of sender.
      */
     public static DialogBox getPochiDialog(String message, Image icon) {
-        return new DialogBox(message, icon);
+        var db = new DialogBox(message, icon);
+        db.flip();
+        return db;
     }
 }

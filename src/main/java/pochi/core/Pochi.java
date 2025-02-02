@@ -22,7 +22,10 @@ public class Pochi {
     /** An instance of TaskList maintaing the information of current tasks. */
     private final TaskList tasks;
 
-    private Pochi() {
+    /**
+     * A constructor of Pochi, which initializes the storage and tasks list.
+     */
+    public Pochi() {
         ui = new Ui();
         storage = new Storage();
         tasks = new TaskList();
@@ -119,6 +122,41 @@ public class Pochi {
             }
         }
     }
+
+    /**
+     * Responses to input commands from the user.
+     *
+     * @param userInput A text input from the user.
+     * @return The response from Pochi.
+     */
+    public String getResponse(String userInput) {
+        try {
+            List<String> parsedCommands = Parser.parseCommand(userInput);
+
+            if (parsedCommands.get(0).equals("bye")) {
+                ui.exit();
+            }
+
+            processCommand(parsedCommands);
+
+            ui.printStatus(tasks.getNumberOfTasks());
+
+            storage.createLog(tasks.getLog());
+        } catch (EmptyCommandException e) {
+            // Do noting
+        } catch (CommandException e) {
+            ui.printError("Oops! Some error occurred!");
+            ui.printError(e.toString());
+        } catch (IOException e) {
+            ui.printError("Oops! Some error occurred during the creation of log file.");
+            ui.printError(
+                    "Please note that the current status of tasks is not saved, sorry...");
+        } finally {
+            ui.changeLine();
+            return "Ok " + userInput;
+        }
+    }
+
     public static void main(String[] args) {
         Pochi pochi = new Pochi();
 
