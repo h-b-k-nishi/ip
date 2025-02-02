@@ -32,9 +32,15 @@ public class MainWindow extends AnchorPane {
     private Image pochiIcon =
         new Image(this.getClass().getResourceAsStream("/icons/DaPochi.jpg"));
 
+    /**
+     * Initializes the main window.
+     * It also prompts Pochi to greet to the user and load the log from previous session.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        //dialogContainer.getChildren().addAll(DialogBox.getPochiDialog(pochi.greet(), pochiIcon));
+        //dialogContainer.getChildren().addAll(DialogBox.getPochiDialog(pochi.processPreviousLog(), pochiIcon));
     }
 
     /** Injects the Pochi instance */
