@@ -3,6 +3,7 @@ package pochi.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.stream.Stream;
 
 import pochi.exceptions.EmptyDescriptionException;
 import pochi.exceptions.InvalidCommandException;
@@ -44,9 +45,13 @@ public class Task {
     public static Task createTask(List<String> descriptions) throws TaskCreationException {
         Task res;
 
+        assert !descriptions.isEmpty() : "The given descriptions cannot be empty!";
+
         if (descriptions.isEmpty()) {
             throw new MissingArgumentException();
         }
+
+        assert Stream.of("todo", "deadline", "event").anyMatch(descriptions.get(0)::equals);
 
         if (descriptions.get(0).equals("todo")) {
             if (descriptions.size() < 3) {
