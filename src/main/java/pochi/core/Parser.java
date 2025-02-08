@@ -19,7 +19,19 @@ import pochi.exceptions.MissingArgumentException;
  */
 public class Parser {
 
-    private static List<String> parseDescriptions(List<String> descriptions, List<String> separators) {
+    private static final List<String> COMMANDS_WITH_ZERO_ARGUMENT = List.of("bye", "list");
+    private static final List<String> COMMANDS_WITH_ONE_ARGUMENT =
+        List.of("mark", "unmark", "delete", "find");
+
+    private static final List<String> TASKS = List.of("todo", "deadline", "event");
+    private static final List<List<String>> SEPARATORS_FOR_TASKS =
+        List.of(List.of(), List.of("/by"), List.of("/from", "/to"));
+
+    private static final String DEFAULT_FALSE = "false";
+
+    private static List<String> parseDescriptions(List<String> descriptions, List<String> separators)
+            throws MissingArgumentException {
+
         List<String> parsedDescriptions = new ArrayList<>();
         String curr = "";
         for (int i = 1, j = 0; i < descriptions.size(); i++) {
@@ -27,14 +39,20 @@ public class Parser {
                 parsedDescriptions.add(curr);
                 curr = "";
                 j++;
-            } else {
-                if (!curr.isEmpty()) {
-                    curr += " ";
-                }
-                curr += descriptions.get(i);
+                continue;
             }
+            if (!curr.isEmpty()) {
+                curr += " ";
+            }
+            curr += descriptions.get(i);
         }
         parsedDescriptions.add(curr);
+
+        int numberOfPartitions = separators.size() + 1;
+        if (parsedDescriptions.size() != numberOfPartitions) {
+            throw new MissingArgumentException();
+        }
+
         return parsedDescriptions;
     }
 
@@ -53,6 +71,19 @@ public class Parser {
         }
     }
 
+    private static List<String> createTaskDescriptions(String query, List<String> parsedDescriptions)
+            throws InvalidDateException {
+
+        List<String> result = new ArrayList<>();
+        result.add(query);
+        result.add(parsedDescriptions.get(0));
+        result.add(DEFAULT_FALSE);
+        for (int i = 1; i < parsedDescriptions.size(); i++) {
+            result.add(Parser.convertToLocalDateTime(parsedDescriptions.get(i)).toString());
+        }
+        return result;
+    }
+
     /**
      * Parses a command given by the user.
      *
@@ -67,50 +98,29 @@ public class Parser {
             throw new EmptyCommandException();
         }
 
-        List<String> results = new ArrayList<>();
+        String query = commands.get(0);
 
-        results.add(commands.get(0));
-
-        if (commands.get(0).equals("bye") || commands.get(0).equals("list")) {
-            // do nothing
-        } else if (commands.get(0).equals("mark")
-                || commands.get(0).equals("unmark")
-                        || commands.get(0).equals("delete")
-                                || commands.get(0).equals("find")) {
-            if (commands.size() < 2) {
-                throw new MissingArgumentException();
-            }
-
-            results.add(commands.get(1));
-        } else if (commands.get(0).equals("todo")) {
-            List<String> parsedDescriptions = parseDescriptions(commands, List.of());
-
-            results.add(parsedDescriptions.get(0));
-            results.add("false");
-        } else if (commands.get(0).equals("deadline")) {
-            List<String> parsedDescriptions = parseDescriptions(commands, List.of("/by"));
-
-            if (parsedDescriptions.size() < 2) {
-                throw new MissingArgumentException();
-            }
-
-            results.add(parsedDescriptions.get(0));
-            results.add("false");
-            results.add(Parser.convertToLocalDateTime(parsedDescriptions.get(1)).toString());
-        } else if (commands.get(0).equals("event")) {
-            List<String> parsedDescriptions = parseDescriptions(commands, List.of("/from", "/to"));
-
-            if (parsedDescriptions.size() < 3) {
-                throw new MissingArgumentException();
-            }
-
-            results.add(parsedDescriptions.get(0));
-            results.add("false");
-            results.add(Parser.convertToLocalDateTime(parsedDescriptions.get(1)).toString());
-            results.add(Parser.convertToLocalDateTime(parsedDescriptions.get(2)).toString());
-        } else {
-            throw new InvalidCommandException();
+        if (COMMANDS_WITH_ZERO_ARGUMENT.stream().anyMatch(query::equals)) {
+            return List.of(query);
         }
-        return results;
+        if (COMMANDS_WITH_ONE_ARGUMENT.stream().anyMatch(query::equals)) {
+            int numberOfQuery = 1;
+            int numberOfArgument = 1;
+            if (commands.size() < numberOfQuery + numberOfArgument) {
+                throw new MissingArgumentException();
+            }
+            return List.of(query, commands.get(1));
+        }
+        if (TASKS.stream().anyMatch(query::equals)) {
+            int type = 0;
+            for (int i = 0; i < TASKS.size(); i++) {
+                if (TASKS.get(i).equals(query)) {
+                    type = i;
+                }
+            }
+            return Parser.createTaskDescriptions(query,
+                Parser.parseDescriptions(commands, SEPARATORS_FOR_TASKS.get(type)));
+        }
+        throw new InvalidCommandException();
     }
 }

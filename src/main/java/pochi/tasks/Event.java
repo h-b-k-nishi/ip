@@ -11,6 +11,8 @@ import pochi.exceptions.EmptyDescriptionException;
  * @author Hibiki Nishiwaki
  */
 public class Event extends Task {
+    private static final String initial = "E";
+
     /** The starting time of this event. */
     private final LocalDateTime startTime;
 
@@ -40,7 +42,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: "
+        return "[" + Event.initial + "] " + super.toString() + " (from: "
                 + Ui.formatDateTime(this.startTime) + " to: " + Ui.formatDateTime(this.endTime) + ")";
     }
 
