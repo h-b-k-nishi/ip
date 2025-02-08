@@ -16,6 +16,17 @@ import pochi.exceptions.TaskCreationException;
  * @author Hibiki Nishiwaki
  */
 public class Task {
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+
+    private static final int NUMBER_OF_ARGUMENTS_FOR_TODO = 3;
+    private static final int NUMBER_OF_ARGUMENTS_FOR_DEADLINE = 4;
+    private static final int NUMBER_OF_ARGUMENTS_FOR_EVENT = 5;
+
+    private static final String COMPLETE = "[X]";
+    private static final String INCOMPLETE = "[ ]";
+
     private final String description;
     private boolean isCompleted;
 
@@ -42,34 +53,34 @@ public class Task {
      * @throws TaskCreationException Thrown when some error occurs during the creation of task.
      */
     public static Task createTask(List<String> descriptions) throws TaskCreationException {
-        Task res;
-
         if (descriptions.isEmpty()) {
             throw new MissingArgumentException();
         }
 
-        if (descriptions.get(0).equals("todo")) {
-            if (descriptions.size() < 3) {
+        Task res;
+
+        String type = descriptions.get(0);
+
+        if (type.equals(TODO)) {
+            if (descriptions.size() < NUMBER_OF_ARGUMENTS_FOR_TODO) {
                 throw new MissingArgumentException();
             }
 
             res = new Todo(descriptions.get(1));
-        } else if (descriptions.get(0).equals("deadline")) {
-            if (descriptions.size() < 4) {
+        } else if (type.equals(DEADLINE)) {
+            if (descriptions.size() < NUMBER_OF_ARGUMENTS_FOR_DEADLINE) {
                 throw new MissingArgumentException();
             }
-
             try {
                 res = new Deadline(descriptions.get(1),
                         LocalDateTime.parse(descriptions.get(3)));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }
-        } else if (descriptions.get(0).equals("event")) {
-            if (descriptions.size() < 5) {
+        } else if (type.equals(EVENT)) {
+            if (descriptions.size() < NUMBER_OF_ARGUMENTS_FOR_EVENT) {
                 throw new MissingArgumentException();
             }
-
             try {
                 res = new Event(descriptions.get(1),
                         LocalDateTime.parse(descriptions.get(3)),
@@ -107,7 +118,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return (this.isCompleted ? "[X]" : "[ ]") + " " + this.description;
+        return (this.isCompleted ? COMPLETE : INCOMPLETE) + " " + this.description;
     }
 
     /**

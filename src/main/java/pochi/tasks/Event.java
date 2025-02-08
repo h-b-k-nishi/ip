@@ -11,7 +11,8 @@ import pochi.exceptions.EmptyDescriptionException;
  * @author Hibiki Nishiwaki
  */
 public class Event extends Task {
-    private static final String initial = "E";
+    private static final String INTIAL = "E";
+    private static final String LOG_PREFIX = "event | ";
 
     /** The starting time of this event. */
     private final LocalDateTime startTime;
@@ -42,7 +43,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + Event.initial + "] " + super.toString() + " (from: "
+        return "[" + Event.INTIAL + "] " + super.toString() + " (from: "
                 + Ui.formatDateTime(this.startTime) + " to: " + Ui.formatDateTime(this.endTime) + ")";
     }
 
@@ -53,6 +54,6 @@ public class Event extends Task {
      */
     @Override
     public String getLog() {
-        return "event | " + super.getLog() + " | " + this.startTime + " | " + this.endTime;
+        return Event.LOG_PREFIX + super.getLog() + " | " + this.startTime + " | " + this.endTime;
     }
 }

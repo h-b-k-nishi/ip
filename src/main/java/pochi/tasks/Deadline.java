@@ -11,7 +11,8 @@ import pochi.exceptions.EmptyDescriptionException;
  * @author Hibiki Nishiwaki
  */
 public class Deadline extends Task {
-    private static final String initial = "D";
+    private static final String INITIAL = "D";
+    private static final String LOG_PREFIX = "deadline | ";
 
     /** The deadline of this deadline. */
     private final LocalDateTime deadline;
@@ -36,7 +37,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + Deadline.initial + "] " + super.toString() + " (by: " + Ui.formatDateTime(this.deadline) + ")";
+        return "[" + Deadline.INITIAL + "] " + super.toString()
+            + " (by: " + Ui.formatDateTime(this.deadline) + ")";
     }
 
     /**
@@ -46,6 +48,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getLog() {
-        return "deadline | " + super.getLog() + " | " + this.deadline;
+        return Deadline.LOG_PREFIX + super.getLog() + " | " + this.deadline;
     }
 }
