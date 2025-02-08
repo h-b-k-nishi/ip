@@ -36,7 +36,8 @@ public class TaskTest {
 
             assertEquals(0, 1);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Invalid format of date! The format has to be yyyy-mm-dd hh:mm.");
+            assertEquals(e.getMessage(),
+                "Invalid format of date! The format has to be yyyy-mm-dd hh:mm or (day) hh:mm.");
         }
     }
     /**
@@ -49,7 +50,8 @@ public class TaskTest {
 
             assertEquals(0, 1);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Invalid format of date! The format has to be yyyy-mm-dd hh:mm.");
+            assertEquals(e.getMessage(),
+                "Invalid format of date! The format has to be yyyy-mm-dd hh:mm or (day) hh:mm.");
         }
     }
     /**
@@ -74,9 +76,11 @@ public class TaskTest {
             Task task = Task.createTask(
                     List.of("event", "dinner", "2024/02/28 19:00", "2024/02/28 20:00", "FFF"));
 
-            assertEquals(task.toString(), "[E] [ ] dinner (from: Feb 28 2024 19:00 to: Feb 28 2024 20:00)");
+            assertEquals(task.toString(),
+                "[E] [ ] dinner (from: Feb 28 2024 19:00 to: Feb 28 2024 20:00)");
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Invalid format of date! The format has to be yyyy-mm-dd hh:mm.");
+            assertEquals(e.getMessage(),
+                "Invalid format of date! The format has to be yyyy-mm-dd hh:mm or (day) hh:mm.");
         }
     }
 }

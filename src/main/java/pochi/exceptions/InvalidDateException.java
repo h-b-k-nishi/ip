@@ -10,6 +10,6 @@ public class InvalidDateException extends TaskCreationException {
      * Constructs a new instance of this exception.
      */
     public InvalidDateException() {
-        super("Invalid format of date! The format has to be yyyy-mm-dd hh:mm.");
+        super("Invalid format of date! The format has to be yyyy-mm-dd hh:mm or (day) hh:mm.");
     }
 }

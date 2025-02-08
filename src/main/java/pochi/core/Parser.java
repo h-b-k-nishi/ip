@@ -1,10 +1,16 @@
 package pochi.core;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import pochi.exceptions.CommandException;
 import pochi.exceptions.EmptyCommandException;
@@ -28,6 +34,9 @@ public class Parser {
         List.of(List.of(), List.of("/by"), List.of("/from", "/to"));
 
     private static final String DEFAULT_FALSE = "false";
+
+    private static final DateTimeFormatter FORMATTER =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private static List<String> parseDescriptions(List<String> descriptions, List<String> separators)
             throws MissingArgumentException {
@@ -64,8 +73,37 @@ public class Parser {
      * @throws InvalidDateException Thrown when the format is invalid.
      */
     private static LocalDateTime convertToLocalDateTime(String dateAndTime) throws InvalidDateException {
+        List<String> parsed = List.of(dateAndTime.split(" "));
+        if (parsed.size() != 2) {
+            throw new InvalidDateException();
+        }
+        String dateOrDay = parsed.get(0);
+        String time = parsed.get(1);
+
+        // First, check if the given dateAndTime is in the valid "day" format.
+        List<DayOfWeek> possibleDays =
+            Arrays.stream(DayOfWeek.values())
+            .filter(day -> day.name().toLowerCase().startsWith(dateOrDay.toLowerCase()))
+            .collect(Collectors.toList());
+
+        // If there is only one possible day, it is deemed as valid.
+        if (possibleDays.size() == 1) {
+            LocalDate today = LocalDate.now();
+            LocalDate designatedDate = today.with(TemporalAdjusters.next(possibleDays.get(0)));
+            try {
+                return LocalDateTime.of(designatedDate, LocalTime.parse(time));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
+        }
+        // If there are more than one possible days, they are deemed as invalid (i.e. ambiguous).
+        if (possibleDays.size() > 1) {
+            throw new InvalidDateException();
+        }
+
+        // Second, check if the given dateAndTime is in the valid "date" format.
         try {
-            return LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            return LocalDateTime.parse(dateAndTime, FORMATTER);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
         }
