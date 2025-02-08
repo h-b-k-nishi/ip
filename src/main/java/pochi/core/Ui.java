@@ -18,6 +18,7 @@ public abstract class Ui {
      * @return A proper string representation of date.
      */
     public static String formatDateTime(LocalDateTime dateAndTime) {
+        assert dateAndTime != null : "The data and time being formatted must not be null!";
         return dateAndTime.format(dateTimeFormatter);
     }
 }
