@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import pochi.exceptions.CommandException;
-import pochi.exceptions.EmptyCommandException;
 import pochi.tasks.Task;
 
 /**
@@ -13,6 +12,32 @@ import pochi.tasks.Task;
  * @author Hibiki Nishiwaki
  */
 public class Pochi {
+
+    private static String LIST = "list";
+    private static String FIND = "find";
+    private static String MARK = "mark";
+    private static String UNMARK = "unmark";
+    private static String DELETE = "delete";
+    private static String MARK_MESSAGE = "Wonderful! I've marked this task as completed:\n";
+    private static String UNMARK_MESSAGE = "Okay, I've marked this task as incompleted:\n";
+    private static String DELETE_MESSAGE = "Noted. I've removed this task:\n";
+    private static String ADD_MESSAGE = "Noted. I've added this task: \n";
+
+    private static String BYE = "bye";
+
+    private static String GREET = "Hello! I'm Pochi.\n" + "What can I do for you?\n";
+    private static String FAREWELL = "Bye. Hope to see you again soon!\n";
+
+    private static String SEPARETOR_FOR_LOG = " \\| ";
+
+    private static String ERROR = "Oops! Some error occurred!\n";
+    private static String ERROR_LOG_CREATION = "Oops! Some error occurred during the creation of log file.\n"
+        + "Please note that the current status of your tasks is not saved, sorry...\n";
+    private static String ERROR_LOADING_LOG =
+        "Oops! Some error occurred when loading the log from the previous session.\n"
+        + "The history of previous session is lost. I am very sorry...\n";
+
+    private static String SUCESS_LOADING_LOG = "Sucessfully loaded the previous log!\n";
 
     /** An instance of Storage handling file I/O regarding the logging. */
     private final Storage storage;
@@ -29,41 +54,34 @@ public class Pochi {
     }
 
     private String processCommand(List<String> commands) throws CommandException {
-        String res = "";
-        if (commands.get(0).equals("list")) {
-            res += tasks.getStatus() + "\n";
-        } else if (commands.get(0).equals("find")) {
+        String query = commands.get(0);
+        if (query.equals(LIST)) {
+            return tasks.getStatus() + "\n";
+        }
+        if (query.equals(FIND)) {
             List<String> results = tasks.findTask(commands.get(1));
-
-            res += results.size() + " tasks are found:\n";
-            for (int i = 0; i < results.size(); i++) {
-                res += results.get(i).toString() + "\n";
-            }
-        } else if (commands.get(0).equals("mark")) {
+            int numberOfSearchResults = results.size();
+            return numberOfSearchResults + " tasks are found:\n"
+                + results.stream().reduce("", (x, y) -> x + y + "\n");
+        }
+        if (query.equals(MARK)) {
             int index = Integer.parseInt(commands.get(1));
             Task marked = tasks.markTask(index);
-
-            res += "Wonderful! I've marked this task as completed:\n";
-            res += marked.toString() + "\n";
-        } else if (commands.get(0).equals("unmark")) {
+            return MARK_MESSAGE + marked.toString() + "\n";
+        }
+        if (query.equals(UNMARK)) {
             int index = Integer.parseInt(commands.get(1));
             Task unmarked = tasks.unmarkTask(index);
-
-            res += "Okay, I've marked this task as incompleted:\n";
-            res += unmarked.toString() + "\n";
-        } else if (commands.get(0).equals("delete")) {
+            return UNMARK_MESSAGE + unmarked.toString() + "\n";
+        }
+        if (query.equals(DELETE)) {
             int index = Integer.parseInt(commands.get(1));
             Task removed = tasks.deleteTask(index);
-
-            res += "Noted. I've removed this task:\n";
-            res += removed.toString() + "\n";
-        } else {
-            Task added = tasks.addTask(Task.createTask(commands));
-
-            res += "Noted. I've added this task: \n";
-            res += added.toString() + "\n";
+            return DELETE_MESSAGE + removed.toString() + "\n";
         }
-        return res;
+
+        Task added = tasks.addTask(Task.createTask(commands));
+        return ADD_MESSAGE + added.toString() + "\n";
     }
 
     /**
@@ -72,7 +90,7 @@ public class Pochi {
      * @return The greeting message.
      */
     public String greet() {
-        return "Hello! I'm Pochi.\n" + "What can I do for you?\n";
+        return GREET;
     }
 
     /**
@@ -86,15 +104,14 @@ public class Pochi {
             List<String> logs = storage.readLog();
 
             for (int i = 0; i < logs.size(); i++) {
-                tasks.addTask(Task.createTask(List.of(logs.get(i).split(" \\| "))));
+                tasks.addTask(Task.createTask(List.of(logs.get(i).split(SEPARETOR_FOR_LOG))));
             }
 
             if (!tasks.isEmpty()) {
-                res += "Sucessfully loaded the previous log!\n";
+                res += SUCESS_LOADING_LOG;
             }
         } catch (Exception e) {
-            res += "Oops! Some error occurred when loading the log from the previous session.\n";
-            res += "The history of previous session is lost. I am very sorry...\n";
+            res += ERROR_LOADING_LOG;
         } finally {
             res += "Here is the list of current tasks:\n";
             res += tasks.getStatus() + "\n";
@@ -113,24 +130,21 @@ public class Pochi {
         try {
             List<String> parsedCommands = Parser.parseCommand(userInput);
 
-            if (parsedCommands.get(0).equals("bye")) {
-                return "Bye. Hope to see you again soon!\n";
+            if (parsedCommands.get(0).equals(BYE)) {
+                return FAREWELL;
             }
 
             res += processCommand(parsedCommands);
             res += "Now you have " + tasks.getNumberOfTasks() + " tasks in the list.\n";
 
             storage.createLog(tasks.getLog());
-        } catch (EmptyCommandException e) {
-            res += "Oops! Some error occurred!\n";
-            res += "Your command is empty. Please enter something!!\n";
         } catch (CommandException e) {
-            res += "Oops! Some error occurred!\n";
+            res += ERROR;
             res += e.getMessage();
         } catch (IOException e) {
-            res += "Oops! Some error occurred during the creation of log file.\n";
-            res += "Please note that the current status of your tasks is not saved, sorry...\n";
+            res += ERROR_LOG_CREATION;
         }
         return res;
     }
 }
+

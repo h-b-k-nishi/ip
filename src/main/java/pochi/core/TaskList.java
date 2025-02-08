@@ -44,9 +44,7 @@ public class TaskList {
     public Task deleteTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task removed = tasks.get(index - 1);
-
             tasks.remove(index - 1);
-
             return removed;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -63,9 +61,7 @@ public class TaskList {
     public Task markTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task marked = tasks.get(index - 1);
-
             marked.mark();
-
             return marked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());
@@ -82,9 +78,7 @@ public class TaskList {
     public Task unmarkTask(int index) throws IndexOutOfBoundException {
         if (1 <= index && index <= tasks.size()) {
             Task unmarked = tasks.get(index - 1);
-
             unmarked.unmark();
-
             return unmarked;
         } else {
             throw new IndexOutOfBoundException(tasks.size());

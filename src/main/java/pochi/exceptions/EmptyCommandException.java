@@ -6,4 +6,10 @@ package pochi.exceptions;
  * @author Hibiki Nishiwaki
  */
 public class EmptyCommandException extends CommandException {
+    /**
+     * Constructs a new instance of this exception.
+     */
+    public EmptyCommandException() {
+        super("Your command is empty. Please enter something!!\n");
+    }
 }

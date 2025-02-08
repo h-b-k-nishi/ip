@@ -16,12 +16,14 @@ import pochi.core.Pochi;
  * @author Hibiki Nishiwaki -reuse
  */
 public class Main extends Application {
-    private Pochi pochi = new Pochi();
+    private static final String PATH_TO_MAIN_FXML = "/view/MainWindow.fxml";
+
+    private final Pochi pochi = new Pochi();
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(PATH_TO_MAIN_FXML));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

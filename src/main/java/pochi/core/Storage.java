@@ -19,28 +19,20 @@ public class Storage {
     /** A string representing the path to the log file. */
     private static String FILE_PATH = DIRECTORY_PATH + "log.txt";
 
-    /**
-     * Loads a log from previous session.
-     *
-     * @return A list of strings representing log information.
-     * @throws IOException Thrown when some error occurs during the file I/O.
-     */
-    public List<String> readLog() throws IOException {
+    private File createFile(String fileName) {
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        return file;
+    }
+
+    private List<String> scanFile(File file) throws IOException {
+        Scanner scanner = new Scanner(file);
+
         List<String> results = new ArrayList<>();
-
-        File folder = new File(Storage.DIRECTORY_PATH);
-
-        if (!folder.exists()) {
-            return results;
-        }
-
-        File logFile = new File(Storage.FILE_PATH);
-
-        if (!logFile.exists()) {
-            return results;
-        }
-
-        Scanner scanner = new Scanner(logFile);
 
         try {
             while (scanner.hasNextLine()) {
@@ -54,6 +46,29 @@ public class Storage {
         return results;
     }
 
+    private void writeLog(File file, String log) throws IOException {
+        FileWriter fw = new FileWriter(file);
+        try {
+            fw.write(log);
+        } finally {
+            fw.close();
+        }
+    }
+
+    /**
+     * Loads a log from previous session.
+     *
+     * @return A list of strings representing log information.
+     * @throws IOException Thrown when some error occurs during the file I/O.
+     */
+    public List<String> readLog() throws IOException {
+        createFile(Storage.DIRECTORY_PATH);
+
+        File logFile = createFile(Storage.FILE_PATH);
+
+        return scanFile(logFile);
+    }
+
     /**
      * Creates a file logging the information of tasks.
      *
@@ -61,24 +76,10 @@ public class Storage {
      * @throws IOException Thrown when an error is occurred during the file I/O.
      */
     public void createLog(String log) throws IOException {
-        File folder = new File(Storage.DIRECTORY_PATH);
+        createFile(Storage.DIRECTORY_PATH);
 
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
+        File logFile = createFile(Storage.FILE_PATH);
 
-        File logFile = new File(Storage.FILE_PATH);
-
-        if (!logFile.exists()) {
-            logFile.createNewFile();
-        }
-
-        FileWriter fw = new FileWriter(logFile);
-
-        try {
-            fw.write(log);
-        } finally {
-            fw.close();
-        }
+        writeLog(logFile, log);
     }
 }

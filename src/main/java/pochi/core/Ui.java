@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
  * @author Hibiki Nishiwaki
  */
 public abstract class Ui {
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm");
+
     /**
      * Returns a desirable format of date.
      *
@@ -17,6 +19,6 @@ public abstract class Ui {
      */
     public static String formatDateTime(LocalDateTime dateAndTime) {
         assert dateAndTime != null : "The data and time being formatted must not be null!";
-        return dateAndTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm"));
+        return dateAndTime.format(dateTimeFormatter);
     }
 }

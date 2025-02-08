@@ -8,6 +8,9 @@ import pochi.exceptions.EmptyDescriptionException;
  * @author Hibiki Nishiwaki
  */
 public class Todo extends Task {
+    private static final String INITIAL = "T";
+    private static final String LOG_PREFIX = "todo | ";
+
     /**
      * Constructs a new instance of Todo task.
      *
@@ -25,7 +28,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        return "[" + Todo.INITIAL + "] " + super.toString();
     }
 
     /**
@@ -35,6 +38,6 @@ public class Todo extends Task {
      */
     @Override
     public String getLog() {
-        return "todo | " + super.getLog();
+        return Todo.LOG_PREFIX + super.getLog();
     }
 }

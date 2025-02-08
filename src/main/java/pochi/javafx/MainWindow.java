@@ -16,6 +16,9 @@ import pochi.core.Pochi;
  * @author Hibiki Nishiwaki -reuse
  */
 public class MainWindow extends AnchorPane {
+    private static final String PATH_TO_USER_ICON = "/icons/DaUser.jpg";
+    private static final String PATH_TO_POCHI_ICON = "/icons/DaPochi.jpg";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,9 +31,9 @@ public class MainWindow extends AnchorPane {
     private Pochi pochi;
 
     private Image userIcon =
-        new Image(this.getClass().getResourceAsStream("/icons/DaUser.jpg"));
+        new Image(this.getClass().getResourceAsStream(PATH_TO_USER_ICON));
     private Image pochiIcon =
-        new Image(this.getClass().getResourceAsStream("/icons/DaPochi.jpg"));
+        new Image(this.getClass().getResourceAsStream(PATH_TO_POCHI_ICON));
 
     /**
      * Initializes the main window.
