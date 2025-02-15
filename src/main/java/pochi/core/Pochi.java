@@ -65,17 +65,17 @@ public class Pochi {
                 + results.stream().reduce("", (x, y) -> x + y + "\n");
         }
         if (query.equals(MARK)) {
-            int index = Integer.parseInt(commands.get(1));
+            int index = Parser.parseInteger(commands.get(1));
             Task marked = tasks.markTask(index);
             return MARK_MESSAGE + marked.toString() + "\n";
         }
         if (query.equals(UNMARK)) {
-            int index = Integer.parseInt(commands.get(1));
+            int index = Parser.parseInteger(commands.get(1));
             Task unmarked = tasks.unmarkTask(index);
             return UNMARK_MESSAGE + unmarked.toString() + "\n";
         }
         if (query.equals(DELETE)) {
-            int index = Integer.parseInt(commands.get(1));
+            int index = Parser.parseInteger(commands.get(1));
             Task removed = tasks.deleteTask(index);
             return DELETE_MESSAGE + removed.toString() + "\n";
         }

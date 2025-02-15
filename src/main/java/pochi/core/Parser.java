@@ -17,6 +17,7 @@ import pochi.exceptions.EmptyCommandException;
 import pochi.exceptions.InvalidCommandException;
 import pochi.exceptions.InvalidDateException;
 import pochi.exceptions.MissingArgumentException;
+import pochi.exceptions.NotIntegerException;
 
 /**
  * A class parses commands from the user.
@@ -160,5 +161,20 @@ public class Parser {
                 Parser.parseDescriptions(commands, SEPARATORS_FOR_TASKS.get(type)));
         }
         throw new InvalidCommandException();
+    }
+
+    /**
+     * Converts a string to an integer.
+     *
+     * @param number The string representation of an integer.
+     * @return The converted integer.
+     * @throws NotIntegerException Thrown when the given integer is not in the valid format.
+     */
+    public static int parseInteger(String number) throws NotIntegerException {
+        try {
+            return Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            throw new NotIntegerException();
+        }
     }
 }
