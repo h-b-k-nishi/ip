@@ -64,3 +64,7 @@ You can also search for a task containing a keyword in its description using the
 ## Logging (performed automatically)
 
 Pochi keeps track of the current status of your task list every time you enter a command. This ensures that your task list information is never lost and will be restored and loaded each time you close and reopen the app (see the picture at the top of this page).
+
+## Finish the dialog session
+
+You can end the conversation with Pochi by using the command: `bye`.

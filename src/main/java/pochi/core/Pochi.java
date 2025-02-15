@@ -120,6 +120,22 @@ public class Pochi {
     }
 
     /**
+     * Check if the input from the user indicates the end of dialog.
+     *
+     * @param userInput A text input from the user.
+     * @return True if the userInput is equal to "bye"; false otherwise.
+     */
+    public boolean isConversationOver(String userInput) {
+        try {
+            List<String> parsedCommands = Parser.parseCommand(userInput);
+
+            return parsedCommands.get(0).equals(BYE);
+        } catch (CommandException e) {
+            return false;
+        }
+    }
+
+    /**
      * Responses to input commands from the user.
      *
      * @param userInput A text input from the user.
