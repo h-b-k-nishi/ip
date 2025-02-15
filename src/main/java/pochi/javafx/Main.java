@@ -23,6 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Pochi");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(PATH_TO_MAIN_FXML));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
