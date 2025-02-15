@@ -19,11 +19,20 @@ public class Storage {
     /** A string representing the path to the log file. */
     private static String FILE_PATH = DIRECTORY_PATH + "log.txt";
 
-    private File createFile(String fileName) {
+
+    private void createFolder(String fileName) {
         File file = new File(fileName);
 
         if (!file.exists()) {
             file.mkdir();
+        }
+    }
+
+    private File createFile(String fileName) throws IOException {
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            file.createNewFile();
         }
 
         return file;
@@ -62,7 +71,7 @@ public class Storage {
      * @throws IOException Thrown when some error occurs during the file I/O.
      */
     public List<String> readLog() throws IOException {
-        createFile(Storage.DIRECTORY_PATH);
+        createFolder(Storage.DIRECTORY_PATH);
 
         File logFile = createFile(Storage.FILE_PATH);
 
@@ -76,7 +85,7 @@ public class Storage {
      * @throws IOException Thrown when an error is occurred during the file I/O.
      */
     public void createLog(String log) throws IOException {
-        createFile(Storage.DIRECTORY_PATH);
+        createFolder(Storage.DIRECTORY_PATH);
 
         File logFile = createFile(Storage.FILE_PATH);
 
